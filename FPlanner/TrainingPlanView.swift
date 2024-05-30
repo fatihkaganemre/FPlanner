@@ -9,11 +9,10 @@ import SwiftUI
 
 struct TrainingPlanView: View {
     @Environment(\.modelContext) private var modelContext
-    @State private var exercise = Exercise()
-    @State private var exerciseList: [Exercise] = []
-    @State private var trainingName: String = ""
-    
-    private var exercises = ["Bench Press", "Dumbbell Press", "Dumbbell fly"]
+    @State var exercise = Exercise()
+    @State var trainingName: String = ""
+    @State var exerciseList: [Exercise] = []
+
     
     var body: some View {
         List {
@@ -24,48 +23,39 @@ struct TrainingPlanView: View {
             
             ForEach(exerciseList) { exercise in
                 VStack(alignment: .leading) {
-                    Text(exercise.name).font(.title)
-                    Text("Number of reps: \(exercise.numberOfReps)")
-                    Text("Number of sets: \(exercise.numberOfSets)")
-                    Text("Max weight: \(exercise.maxWeight) kg")
+                    Text(exercise.name).font(.headline)
+                    HStack {
+                        Text("\(exercise.numberOfSets) sets")
+                        Text("\(exercise.numberOfReps) reps")
+                    }
+                    Text("Max: \(exercise.maxWeight) kg")
                 }
             }.onDelete(perform: deleteItems)
             
-            Section {
-                Picker("Select the exercise", selection: $exercise.name) {
-                    ForEach(exercises, id: \.self) { exercise in
-                        Text(exercise)
-                    }
-                }
-                TextField("Number of sets", text: $exercise.numberOfSets)
-                TextField("Number of reps", text: $exercise.numberOfReps)
-                HStack {
-                    TextField("Max weight", text: $exercise.maxWeight)
-                    Text("kg")
-                }
-                
-                Button(action: {
-                    exerciseList.append(exercise)
-                    exercise = Exercise()
-                }, label: {
-                    Label("Add Item", systemImage: "plus")
-                })
-            }
-            
-            Section {
-                Button(action: {
-                    createTraining()
-                },label: {
-                    Text("Create training")
-                })
-            }
+            Section("Add an exercise") {
+                ExerciseView(
+                    exercise: $exercise,
+                    exerciseList: $exerciseList
+                )
+            }.focusable()
         }
+        .navigationTitle("Create a training")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
-                    .disabled(exercises.isEmpty)
+                    .disabled(exerciseList.isEmpty)
             }
         }
+        
+        Button("Create training") {
+            createTraining()
+        }
+        .font(.title2)
+        .frame(height: 80)
+        .frame(maxWidth: .infinity)
+        .foregroundColor(.white)
+        .background(.blue)
+        
     }
     
     private func deleteItems(offsets: IndexSet) {

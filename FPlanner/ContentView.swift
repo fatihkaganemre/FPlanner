@@ -13,12 +13,19 @@ struct ContentView: View {
     @Query private var trainings: [Training]
 
     var body: some View {
-        NavigationSplitView {
+        NavigationStack {
             List {
                 ForEach(trainings) { training in
-                    VStack(alignment: .leading) {
-                        Text(training.name).font(.title)
-                        Text("Training at \(training.creationDate, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                    NavigationLink {
+                        TrainingPlanView(
+                            trainingName: training.name,
+                            exerciseList: training.exercise ?? []
+                        )
+                    } label: {
+                        VStack(alignment: .leading) {
+                            Text(training.name).font(.title)
+                            Text("Training at \(training.creationDate, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                        }
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -37,8 +44,6 @@ struct ContentView: View {
                     }
                 }
             }
-        } detail: {
-            Text("Select an item")
         }
     }
 
