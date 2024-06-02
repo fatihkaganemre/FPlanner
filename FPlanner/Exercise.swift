@@ -8,9 +8,8 @@
 import Foundation
 import SwiftData
 
-@Model
-final class Exercise: Identifiable, Hashable {
-    let id = UUID()
+struct GymExercise: Codable, Identifiable {
+    var id = UUID()
     var name: String
     var numberOfReps: String
     var numberOfSets: String
@@ -28,5 +27,16 @@ final class Exercise: Identifiable, Hashable {
         self.numberOfReps = ""
         self.numberOfSets = ""
         self.maxWeight = ""
+    }
+}
+
+struct CustomExercise: Codable, Identifiable {
+    var id = UUID()
+    var name: String
+    var description: String
+    
+    init(name: String = "", description: String = "") {
+        self.name = name
+        self.description = description
     }
 }

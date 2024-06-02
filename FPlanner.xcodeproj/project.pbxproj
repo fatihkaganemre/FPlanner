@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D45DF032C049C2B00F4181A /* TrainingPlanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D45DF022C049C2B00F4181A /* TrainingPlanView.swift */; };
 		3D7399A02C047F2000B647C0 /* FPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D73999F2C047F2000B647C0 /* FPlannerApp.swift */; };
 		3D7399A22C047F2000B647C0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399A12C047F2000B647C0 /* ContentView.swift */; };
 		3D7399A42C047F2000B647C0 /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399A32C047F2000B647C0 /* Training.swift */; };
@@ -17,8 +16,13 @@
 		3D7399BD2C047F2200B647C0 /* FPlannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399BC2C047F2200B647C0 /* FPlannerUITests.swift */; };
 		3D7399BF2C047F2200B647C0 /* FPlannerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399BE2C047F2200B647C0 /* FPlannerUITestsLaunchTests.swift */; };
 		3DF007B32C074AE700ECE37C /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007B22C074AE700ECE37C /* Exercise.swift */; };
-		3DF007BA2C076D9400ECE37C /* ExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007B92C076D9400ECE37C /* ExerciseView.swift */; };
 		3DF007BC2C086BD200ECE37C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3DF007BB2C086BD200ECE37C /* README.md */; };
+		3DF007C02C0B2A4F00ECE37C /* TrainingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */; };
+		3DF007C22C0B2AD600ECE37C /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007C12C0B2AD600ECE37C /* MainView.swift */; };
+		3DF007C52C0B2D5400ECE37C /* GymTrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007C42C0B2D5400ECE37C /* GymTrainingView.swift */; };
+		3DF007C72C0B308000ECE37C /* CustomTrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007C62C0B308000ECE37C /* CustomTrainingView.swift */; };
+		3DF007C92C0C553C00ECE37C /* GymExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007C82C0C553B00ECE37C /* GymExerciseView.swift */; };
+		3DF007CB2C0C56A100ECE37C /* CustomExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007CA2C0C56A100ECE37C /* CustomExerciseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,7 +43,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3D45DF022C049C2B00F4181A /* TrainingPlanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingPlanView.swift; sourceTree = "<group>"; };
 		3D73999C2C047F2000B647C0 /* FPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D73999F2C047F2000B647C0 /* FPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPlannerApp.swift; sourceTree = "<group>"; };
 		3D7399A12C047F2000B647C0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -52,8 +55,13 @@
 		3D7399BC2C047F2200B647C0 /* FPlannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPlannerUITests.swift; sourceTree = "<group>"; };
 		3D7399BE2C047F2200B647C0 /* FPlannerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPlannerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3DF007B22C074AE700ECE37C /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
-		3DF007B92C076D9400ECE37C /* ExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseView.swift; sourceTree = "<group>"; };
 		3DF007BB2C086BD200ECE37C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingsView.swift; sourceTree = "<group>"; };
+		3DF007C12C0B2AD600ECE37C /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		3DF007C42C0B2D5400ECE37C /* GymTrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymTrainingView.swift; sourceTree = "<group>"; };
+		3DF007C62C0B308000ECE37C /* CustomTrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTrainingView.swift; sourceTree = "<group>"; };
+		3DF007C82C0C553B00ECE37C /* GymExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GymExerciseView.swift; sourceTree = "<group>"; };
+		3DF007CA2C0C56A100ECE37C /* CustomExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExerciseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +115,12 @@
 			children = (
 				3D73999F2C047F2000B647C0 /* FPlannerApp.swift */,
 				3D7399A12C047F2000B647C0 /* ContentView.swift */,
-				3D45DF022C049C2B00F4181A /* TrainingPlanView.swift */,
-				3DF007B92C076D9400ECE37C /* ExerciseView.swift */,
+				3DF007C12C0B2AD600ECE37C /* MainView.swift */,
+				3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */,
+				3DF007C42C0B2D5400ECE37C /* GymTrainingView.swift */,
+				3DF007C62C0B308000ECE37C /* CustomTrainingView.swift */,
+				3DF007C82C0C553B00ECE37C /* GymExerciseView.swift */,
+				3DF007CA2C0C56A100ECE37C /* CustomExerciseView.swift */,
 				3D7399A32C047F2000B647C0 /* Training.swift */,
 				3DF007B22C074AE700ECE37C /* Exercise.swift */,
 				3D7399A52C047F2200B647C0 /* Assets.xcassets */,
@@ -273,12 +285,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3DF007BA2C076D9400ECE37C /* ExerciseView.swift in Sources */,
+				3DF007C22C0B2AD600ECE37C /* MainView.swift in Sources */,
 				3DF007B32C074AE700ECE37C /* Exercise.swift in Sources */,
+				3DF007C72C0B308000ECE37C /* CustomTrainingView.swift in Sources */,
+				3DF007CB2C0C56A100ECE37C /* CustomExerciseView.swift in Sources */,
+				3DF007C02C0B2A4F00ECE37C /* TrainingsView.swift in Sources */,
+				3DF007C52C0B2D5400ECE37C /* GymTrainingView.swift in Sources */,
 				3D7399A22C047F2000B647C0 /* ContentView.swift in Sources */,
 				3D7399A42C047F2000B647C0 /* Training.swift in Sources */,
+				3DF007C92C0C553C00ECE37C /* GymExerciseView.swift in Sources */,
 				3D7399A02C047F2000B647C0 /* FPlannerApp.swift in Sources */,
-				3D45DF032C049C2B00F4181A /* TrainingPlanView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

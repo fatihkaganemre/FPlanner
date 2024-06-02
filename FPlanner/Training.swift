@@ -12,11 +12,30 @@ import SwiftData
 final class Training {
     var creationDate: Date
     var name: String
-    var exercise: [Exercise]? = []
+    var gymExercises: [GymExercise]? = []
+    var customExercises: [CustomExercise]? = []
     
-    init(name: String, date: Date = .now, exercise: [Exercise]) {
+    init(
+        name: String,
+        date: Date = .now,
+        gymExercises: [GymExercise] = [],
+        customExercises: [CustomExercise] = []
+    ) {
         self.name = name
         self.creationDate = date
-        self.exercise = exercise
+        self.gymExercises = gymExercises
+        self.customExercises = customExercises
     }
 }
+
+extension Training {
+    static func predicate(
+        name: String
+    ) -> Predicate<Training> {
+        return #Predicate<Training> { training  in
+            training.name == name
+        }
+    }
+}
+
+extension Training: Identifiable {}

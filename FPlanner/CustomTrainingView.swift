@@ -1,19 +1,26 @@
 //
-//  TrainingPlanView.swift
+//  CustomTrainingView.swift
 //  FPlanner
 //
-//  Created by Fatih Kagan Emre on 27/05/2024.
+//  Created by Fatih Kagan Emre on 01/06/2024.
 //
 
 import SwiftUI
 
-struct TrainingPlanView: View {
-    @Environment(\.modelContext) private var modelContext
-    @State var exercise = Exercise()
-    @State var trainingName: String = ""
-    @State var exerciseList: [Exercise] = []
 
+struct CustomTrainingView: View {
+    @Environment(\.modelContext) private var modelContext
+    @State var exercise = CustomExercise()
+    @State var trainingName: String
+    @State var exerciseList: [CustomExercise]
+    let training: Training?
     
+    init(training: Training? = nil) {
+        self.training = training
+        self.trainingName = training?.name ?? ""
+        self.exerciseList = training?.customExercises ?? []
+    }
+
     var body: some View {
         List {
             Section {
@@ -24,22 +31,18 @@ struct TrainingPlanView: View {
             ForEach(exerciseList) { exercise in
                 VStack(alignment: .leading) {
                     Text(exercise.name).font(.headline)
-                    HStack {
-                        Text("\(exercise.numberOfSets) sets")
-                        Text("\(exercise.numberOfReps) reps")
-                    }
-                    Text("Max: \(exercise.maxWeight) kg")
+                    Text(exercise.description)
                 }
             }.onDelete(perform: deleteItems)
             
             Section("Add an exercise") {
-                ExerciseView(
+                CustomExerciseView(
                     exercise: $exercise,
                     exerciseList: $exerciseList
                 )
             }.focusable()
         }
-        .navigationTitle("Create a training")
+        .navigationTitle("\(training == nil ? "Create": "Save") a training")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
@@ -47,15 +50,14 @@ struct TrainingPlanView: View {
             }
         }
         
-        Button("Create training") {
-            createTraining()
+        Button("\(training == nil ? "Create": "Save") training") {
+            training == nil ? createTraining(): saveTrainingPlan()
         }
-        .font(.title2)
+        .font(.largeTitle)
         .frame(height: 80)
         .frame(maxWidth: .infinity)
         .foregroundColor(.white)
         .background(.blue)
-        
     }
     
     private func deleteItems(offsets: IndexSet) {
@@ -69,12 +71,17 @@ struct TrainingPlanView: View {
     private func createTraining() {
         let newTraining = Training(
             name: trainingName,
-            exercise: exerciseList
+            customExercises: exerciseList
         )
         modelContext.insert(newTraining)
+    }
+    
+    private func saveTrainingPlan() {
+        training?.name = trainingName
+        training?.customExercises = exerciseList
     }
 }
 
 #Preview {
-    TrainingPlanView()
+    CustomTrainingView()
 }

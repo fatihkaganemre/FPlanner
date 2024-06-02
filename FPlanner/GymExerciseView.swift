@@ -1,15 +1,15 @@
 //
-//  ExerciseView.swift
+//  GymExerciseView.swift
 //  FPlanner
 //
-//  Created by Fatih Kagan Emre on 29/05/2024.
+//  Created by Fatih Kagan Emre on 02/06/2024.
 //
 
 import SwiftUI
 
-struct ExerciseView: View {
-    @Binding var exercise: Exercise
-    @Binding var exerciseList: [Exercise]
+struct GymExerciseView: View {
+    @Binding var exercise: GymExercise
+    @Binding var exerciseList: [GymExercise]
     
     var body: some View {
         VStack(spacing: 5) {
@@ -24,7 +24,7 @@ struct ExerciseView: View {
             
             Button("Add Exercise") {
                 exerciseList.append(exercise)
-                exercise = Exercise()
+                exercise = GymExercise()
             }
             .buttonStyle(.borderedProminent)
             .disabled(
@@ -33,13 +33,14 @@ struct ExerciseView: View {
                 || exercise.numberOfReps.isEmpty
                 || exercise.maxWeight.isEmpty
             )
+            // TODO: - Check validation in iOS
         }
     }
 }
 
 #Preview {
-    ExerciseView(
-        exercise:  .constant(.init()),
+    GymExerciseView(
+        exercise: .constant(.init()),
         exerciseList: .constant([])
     )
 }

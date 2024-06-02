@@ -1,6 +1,16 @@
 # FPlanner
-It is an app for creating gym or custom training plans and to track the exercises. 
+It allows you to:
+- Create gym training
+- Create custom training
+- Display list of trainings
+- Edit/Remove trainings and exercises
+
+
+# Tech stack
+- SwiftUI
+- SwiftData
 
 
 # What is next: 
-- Organise the code
+- 
+
