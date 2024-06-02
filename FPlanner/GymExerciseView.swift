@@ -12,7 +12,7 @@ struct GymExerciseView: View {
     @Binding var exerciseList: [GymExercise]
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(alignment: .leading, spacing: 5) {
             TextField("Exercise name", text: $exercise.name)
                 .font(.headline)
             TextField("Number of sets", text: $exercise.numberOfSets)

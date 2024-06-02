@@ -19,7 +19,7 @@ struct TrainingsView: View {
                     let gymTrainings = trainings.filter { !($0.gymExercises ?? []).isEmpty }
                     ForEach(gymTrainings) { training in
                         NavigationLink {
-                            GymTrainingView(training: training)
+                            GymTrainingView(viewModel: .init(training: training))
                         } label: {
                             VStack(alignment: .leading) {
                                 Text(training.name).font(.title)

@@ -8,27 +8,65 @@
 import SwiftUI
 import SwiftData
 
-struct GymTrainingView: View {
-    @Environment(\.modelContext) private var modelContext
-    @State var exercise = GymExercise()
-    @State var trainingName: String
-    @State var exerciseList: [GymExercise]
-    let training: Training?
+@MainActor
+class GymTrainingViewModel: ObservableObject {
+    @Published var exercise = GymExercise()
+    @Published var trainingName: String
+    @Published var exerciseList: [GymExercise]
+    
+    private let training: Training?
+    var isCreateTraining: Bool {
+        training == nil
+    }
+    
+    var buttonTitle: String {
+        isCreateTraining ? "Create": "Save"
+    }
     
     init(training: Training? = nil) {
         self.training = training
         self.trainingName = training?.name ?? ""
         self.exerciseList = training?.gymExercises ?? []
     }
+    
+    func deleteItems(offsets: IndexSet) {
+        for index in offsets {
+            exerciseList.remove(at: index)
+        }
+    }
+    
+    func saveOrDeleteTraining(fromContext modelContext: ModelContext) {
+        isCreateTraining
+        ? createTraining(modelContext: modelContext)
+        : saveTraining()
+    }
+    
+    private func createTraining(modelContext: ModelContext) {
+        let newTraining = Training(
+            name: trainingName,
+            gymExercises: exerciseList
+        )
+        modelContext.insert(newTraining)
+    }
+    
+    private func saveTraining() {
+        training?.name = trainingName
+        training?.gymExercises = exerciseList
+    }
+}
+
+struct GymTrainingView: View {
+    @Environment(\.modelContext) private var modelContext
+    @StateObject var viewModel: GymTrainingViewModel
 
     var body: some View {
         List {
-            Section {
-                TextField("Enter training name", text: $trainingName)
-                    .font(.title)
+            Section("Title") {
+                TextField("Enter training name", text: $viewModel.trainingName)
+                    .font(.title2)
             }
             
-            ForEach(exerciseList) { exercise in
+            ForEach(viewModel.exerciseList) { exercise in
                 VStack(alignment: .leading) {
                     Text(exercise.name).font(.headline)
                     HStack {
@@ -41,51 +79,36 @@ struct GymTrainingView: View {
             
             Section("Add an exercise") {
                 GymExerciseView(
-                    exercise: $exercise,
-                    exerciseList: $exerciseList
+                    exercise: $viewModel.exercise,
+                    exerciseList: $viewModel.exerciseList
                 )
             }.focusable()
         }
-        .navigationTitle("\(training == nil ? "Create": "Save") a training")
+        .navigationTitle("Gym training")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
-                    .disabled(exerciseList.isEmpty)
+                    .disabled(viewModel.exerciseList.isEmpty)
             }
         }
         
-        Button("\(training == nil ? "Create": "Save") training") {
-            training == nil ? createTraining(): saveTrainingPlan()
+        Section {
+            Button(viewModel.buttonTitle) {
+                viewModel.saveOrDeleteTraining(fromContext: modelContext)
+            }
+            .disabled(viewModel.exerciseList.isEmpty)
+            .font(.title)
+            .buttonStyle(.borderedProminent)
         }
-        .font(.largeTitle)
-        .frame(height: 80)
-        .frame(maxWidth: .infinity)
-        .foregroundColor(.white)
-        .background(.blue)
     }
     
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
-            for index in offsets {
-                exerciseList.remove(at: index)
-            }
+            viewModel.deleteItems(offsets: offsets)
         }
-    }
-    
-    private func createTraining() {
-        let newTraining = Training(
-            name: trainingName,
-            gymExercises: exerciseList
-        )
-        modelContext.insert(newTraining)
-    }
-    
-    private func saveTrainingPlan() {
-        training?.name = trainingName
-        training?.gymExercises = exerciseList
     }
 }
 
 #Preview {
-    GymTrainingView(training: nil)
+    GymTrainingView(viewModel: .init())
 }

@@ -12,7 +12,8 @@ struct MainView: View {
         NavigationStack {
             List {
                 NavigationLink {
-                    GymTrainingView()
+                    GymTrainingView(viewModel: .init())
+                        .toolbar(.hidden, for: .tabBar)
                 } label: {
                     Text("Create Gym training")
                         .font(.title2)
@@ -21,6 +22,7 @@ struct MainView: View {
             
                 NavigationLink {
                     CustomTrainingView()
+                        .toolbar(.hidden, for: .tabBar)
                 } label: {
                     Text("Create Custom training")
                         .font(.title2)

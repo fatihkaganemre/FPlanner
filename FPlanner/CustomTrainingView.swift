@@ -23,9 +23,9 @@ struct CustomTrainingView: View {
 
     var body: some View {
         List {
-            Section {
+            Section("Title") {
                 TextField("Enter training name", text: $trainingName)
-                    .font(.title)
+                    .font(.title2)
             }
             
             ForEach(exerciseList) { exercise in
@@ -42,7 +42,7 @@ struct CustomTrainingView: View {
                 )
             }.focusable()
         }
-        .navigationTitle("\(training == nil ? "Create": "Save") a training")
+        .navigationTitle("Custom training")
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
@@ -50,14 +50,12 @@ struct CustomTrainingView: View {
             }
         }
         
-        Button("\(training == nil ? "Create": "Save") training") {
+        Button("\(training == nil ? "Create": "Save")") {
             training == nil ? createTraining(): saveTrainingPlan()
         }
-        .font(.largeTitle)
-        .frame(height: 80)
-        .frame(maxWidth: .infinity)
-        .foregroundColor(.white)
-        .background(.blue)
+        .disabled(exerciseList.isEmpty)
+        .font(.title)
+        .buttonStyle(.borderedProminent)
     }
     
     private func deleteItems(offsets: IndexSet) {
