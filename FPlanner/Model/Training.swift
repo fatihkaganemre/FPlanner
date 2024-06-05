@@ -11,20 +11,23 @@ import SwiftData
 @Model
 final class Training {
     var creationDate: Date
-    var name: String
-    var gymExercises: [GymExercise]? = []
-    var customExercises: [CustomExercise]? = []
+    var name: String?
+    var gymExercises: [GymExercise]
+    var customExercises: [CustomExercise]
+    let type: TrainingType
     
     init(
-        name: String,
+        name: String? = nil,
         date: Date = .now,
         gymExercises: [GymExercise] = [],
-        customExercises: [CustomExercise] = []
+        customExercises: [CustomExercise] = [],
+        type: TrainingType
     ) {
         self.name = name
         self.creationDate = date
         self.gymExercises = gymExercises
         self.customExercises = customExercises
+        self.type = type
     }
 }
 

@@ -11,25 +11,22 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                NavigationLink {
-                    GymTrainingView(viewModel: .init())
-                        .toolbar(.hidden, for: .tabBar)
-                } label: {
+                NavigationLink(value: TrainingType.gym)  {
                     Text("Create Gym training")
                         .font(.title2)
                 }
                 .padding()
-            
-                NavigationLink {
-                    CustomTrainingView()
-                        .toolbar(.hidden, for: .tabBar)
-                } label: {
+                
+                NavigationLink(value: TrainingType.custom)  {
                     Text("Create Custom training")
                         .font(.title2)
                 }
                 .padding()
             }
             .navigationTitle("Create a training")
+            .navigationDestination(for: TrainingType.self) { type in
+                TrainingView(viewModel: .init(training: .init(type: type)))
+            }
         }
     }
 }

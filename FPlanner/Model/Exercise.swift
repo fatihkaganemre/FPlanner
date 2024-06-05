@@ -8,29 +8,27 @@
 import Foundation
 import SwiftData
 
-struct GymExercise: Codable, Identifiable {
+enum TrainingType: Codable, Hashable, Equatable {
+    case gym
+    case custom
+}
+
+struct GymExercise: Codable, Identifiable, Hashable {
     var id = UUID()
     var name: String
     var numberOfReps: String
     var numberOfSets: String
     var maxWeight: String
     
-    init(name: String, numberOfReps: String, numberOfSets: String, maxWeight: String) {
+    init(name: String = "", numberOfReps: String = "", numberOfSets: String = "", maxWeight: String = "") {
         self.name = name
         self.numberOfReps = numberOfReps
         self.numberOfSets = numberOfSets
         self.maxWeight = maxWeight
     }
-    
-    init() {
-        self.name = ""
-        self.numberOfReps = ""
-        self.numberOfSets = ""
-        self.maxWeight = ""
-    }
 }
 
-struct CustomExercise: Codable, Identifiable {
+struct CustomExercise: Codable, Identifiable, Hashable {
     var id = UUID()
     var name: String
     var description: String

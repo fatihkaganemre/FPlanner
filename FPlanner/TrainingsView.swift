@@ -16,13 +16,11 @@ struct TrainingsView: View {
         NavigationStack {
             List {
                 Section("Gym trainings") {
-                    let gymTrainings = trainings.filter { !($0.gymExercises ?? []).isEmpty }
+                    let gymTrainings = trainings.filter { $0.type == .gym }
                     ForEach(gymTrainings) { training in
-                        NavigationLink {
-                            GymTrainingView(viewModel: .init(training: training))
-                        } label: {
+                        NavigationLink(value: training) {
                             VStack(alignment: .leading) {
-                                Text(training.name).font(.title)
+                                Text(training.name ?? "").font(.title)
                                 Text("Created at \(training.creationDate, format: Date.FormatStyle(date: .numeric, time: .standard))")
                             }
                         }
@@ -30,22 +28,22 @@ struct TrainingsView: View {
                     .onDelete(perform: deleteGymTraining)
                 }
                 Section("Custom Trainings") {
-                    let customTrainings = trainings.filter { !($0.customExercises ?? []).isEmpty }
+                    let customTrainings = trainings.filter { $0.type == .custom}
                     ForEach(customTrainings) { training in
-                        NavigationLink {
-                            CustomTrainingView(training: training)
-                        } label: {
+                        NavigationLink(value: training) {
                             VStack(alignment: .leading) {
-                                Text(training.name).font(.title)
+                                Text(training.name ?? "").font(.title)
                                 Text("Created at \(training.creationDate, format: Date.FormatStyle(date: .numeric, time: .standard))")
                             }
                         }
                     }
                     .onDelete(perform: deleteCustomTraining)
                 }
-
             }
             .navigationTitle("Trainings")
+            .navigationDestination(for: Training.self) { training in
+                TrainingView(viewModel: .init(training: training))
+            }
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
@@ -58,7 +56,7 @@ struct TrainingsView: View {
     private func deleteGymTraining(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                let gymTrainings = trainings.filter { !($0.gymExercises ?? []).isEmpty }
+                let gymTrainings = trainings.filter { $0.type == .gym }
                 let training  = gymTrainings[index]
                 modelContext.delete(training)
             }
@@ -68,7 +66,7 @@ struct TrainingsView: View {
     private func deleteCustomTraining(offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                let customTrainings = trainings.filter { !($0.customExercises ?? []).isEmpty }
+                let customTrainings = trainings.filter { $0.type == .custom }
                 let training  = customTrainings[index]
                 modelContext.delete(training)
             }

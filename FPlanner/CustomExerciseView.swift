@@ -8,19 +8,24 @@
 import SwiftUI
 
 struct CustomExerciseView: View {
-    @Binding var exercise: CustomExercise
+    @State var exercise: CustomExercise = .init()
     @Binding var exerciseList: [CustomExercise]
+    @Binding var isEditing: Bool
     
     var body: some View {
-        VStack(spacing: 5) {
+        VStack(alignment: .leading, spacing: 5) {
             TextField("Name", text: $exercise.name)
                 .font(.headline)
             TextField("Description", text: $exercise.description)
                 .font(.subheadline)
             
-            Button("Add Exercise") {
-                exerciseList.append(exercise)
-                exercise = CustomExercise()
+            Button("\(isEditing ? "Save" : "Add") Exercise") {
+                if isEditing {
+                    isEditing.toggle()
+                } else {
+                    exerciseList.append(exercise)
+                    exercise = .init()
+                }
             }
             .buttonStyle(.borderedProminent)
             .disabled(
@@ -34,7 +39,7 @@ struct CustomExerciseView: View {
 
 #Preview {
     CustomExerciseView(
-        exercise: .constant(.init()),
-        exerciseList: .constant([])
+        exerciseList: .constant([]),
+        isEditing: .constant(false)
     )
 }
