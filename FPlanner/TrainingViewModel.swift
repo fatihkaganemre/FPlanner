@@ -63,6 +63,7 @@ class TrainingViewModel: ObservableObject {
             scheduledAt: scheduledAt,
             gymExercises: gymExercises,
             customExercises: customExercises,
+            karateExercises: karateExercises,
             type: training.type
         )
         modelContext.insert(newTraining)

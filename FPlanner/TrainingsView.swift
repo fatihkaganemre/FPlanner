@@ -29,7 +29,9 @@ struct TrainingsView: View {
                                 }
                             }
                         }
-                        .onDelete(perform: deleteGymTraining)
+                        .onDelete {
+                            deleteTraining(type: .karate, offsets: $0)
+                        }
                     }
                 }
                 
@@ -39,11 +41,13 @@ struct TrainingsView: View {
                             NavigationLink(value: training) {
                                 VStack(alignment: .leading) {
                                     Text(training.name ?? "").font(.title)
-                                    Text("Created: \(training.creationDate.formatted(date: .abbreviated, time: .shortened))")
+                                    Text("Scheduled: \(training.creationDate.formatted(date: .abbreviated, time: .shortened))")
                                 }
                             }
                         }
-                        .onDelete(perform: deleteCustomTraining)
+                        .onDelete {
+                            deleteTraining(type: .karate, offsets: $0)
+                        }
                     }
                 }
                 
@@ -57,7 +61,9 @@ struct TrainingsView: View {
                                 }
                             }
                         }
-                        .onDelete(perform: deleteCustomTraining)
+                        .onDelete {
+                            deleteTraining(type: .karate, offsets: $0)
+                        }
                     }
                 }
             }
@@ -73,26 +79,18 @@ struct TrainingsView: View {
             }
         }
     }
-
-    private func deleteGymTraining(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                let gymTrainings = trainings.filter { $0.type == .gym }
-                let training  = gymTrainings[index]
-                modelContext.delete(training)
-            }
-        }
-    }
     
-    private func deleteCustomTraining(offsets: IndexSet) {
+
+    private func deleteTraining(type: TrainingType, offsets: IndexSet) {
         withAnimation {
             for index in offsets {
-                let customTrainings = trainings.filter { $0.type == .custom }
-                let training  = customTrainings[index]
+                let trainings = trainings.filter { $0.type == type }
+                let training  = trainings[index]
                 modelContext.delete(training)
             }
         }
     }
+
 }
 
 #Preview {
