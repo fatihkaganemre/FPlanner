@@ -15,29 +15,50 @@ struct TrainingsView: View {
     var body: some View {
         NavigationStack {
             List {
-                Section("Gym trainings") {
-                    let gymTrainings = trainings.filter { $0.type == .gym }
-                    ForEach(gymTrainings) { training in
-                        NavigationLink(value: training) {
-                            VStack(alignment: .leading) {
-                                Text(training.name ?? "").font(.title)
-                                Text("Created at \(training.creationDate, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                let gymTrainings = trainings.filter { $0.type == .gym }
+                let customTrainings = trainings.filter { $0.type == .custom}
+                let karateTrainings = trainings.filter { $0.type == .karate}
+                
+                if !gymTrainings.isEmpty {
+                    Section("Gym trainings") {
+                        ForEach(gymTrainings) { training in
+                            NavigationLink(value: training) {
+                                VStack(alignment: .leading) {
+                                    Text(training.name ?? "").font(.title)
+                                    Text("Created: \(training.creationDate.formatted(date: .abbreviated, time: .shortened))")
+                                }
                             }
                         }
+                        .onDelete(perform: deleteGymTraining)
                     }
-                    .onDelete(perform: deleteGymTraining)
                 }
-                Section("Custom Trainings") {
-                    let customTrainings = trainings.filter { $0.type == .custom}
-                    ForEach(customTrainings) { training in
-                        NavigationLink(value: training) {
-                            VStack(alignment: .leading) {
-                                Text(training.name ?? "").font(.title)
-                                Text("Created at \(training.creationDate, format: Date.FormatStyle(date: .numeric, time: .standard))")
+                
+                if !customTrainings.isEmpty {
+                    Section("Custom Trainings") {
+                        ForEach(customTrainings) { training in
+                            NavigationLink(value: training) {
+                                VStack(alignment: .leading) {
+                                    Text(training.name ?? "").font(.title)
+                                    Text("Created: \(training.creationDate.formatted(date: .abbreviated, time: .shortened))")
+                                }
                             }
                         }
+                        .onDelete(perform: deleteCustomTraining)
                     }
-                    .onDelete(perform: deleteCustomTraining)
+                }
+                
+                if !karateTrainings.isEmpty {
+                    Section("Karate Trainings") {
+                        ForEach(karateTrainings) { training in
+                            NavigationLink(value: training) {
+                                VStack(alignment: .leading) {
+                                    Text(training.name ?? "").font(.title)
+                                    Text("Scheduled: \(training.scheduledAt.formatted(date: .abbreviated, time: .shortened))")
+                                }
+                            }
+                        }
+                        .onDelete(perform: deleteCustomTraining)
+                    }
                 }
             }
             .navigationTitle("Trainings")

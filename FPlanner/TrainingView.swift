@@ -11,29 +11,29 @@ import SwiftData
 struct TrainingView: View {
     @Environment(\.modelContext) private var modelContext
     @StateObject var viewModel: TrainingViewModel
-    @State var isEditingExercise: Bool = false
 
     var body: some View {
         List {
             Section("Title") {
                 TextField("Enter training name", text: $viewModel.trainingName)
                     .font(.title2)
+                DatePicker("Scheduled at", selection: $viewModel.scheduledAt)
             }
             
             Section {
                 ExerciseListView(
                     trainingType: viewModel.trainingType,
                     customExercises: $viewModel.customExercises,
-                    gymExercises: $viewModel.gymExercises,
-                    isEditing: $isEditingExercise
+                    gymExercises: $viewModel.gymExercises, 
+                    karateExercises: $viewModel.karateExercises
                 )
             }
-            if !isEditingExercise {
-                Section("Add an exercise") {
-                    switch viewModel.trainingType {
-                        case .gym: GymExerciseView(exerciseList: $viewModel.gymExercises, isEditing: $isEditingExercise)
-                        case .custom: CustomExerciseView(exerciseList: $viewModel.customExercises, isEditing: $isEditingExercise)
-                    }
+            
+            Section("Add an exercise") {
+                switch viewModel.trainingType {
+                    case .gym: GymExerciseView(exerciseList: $viewModel.gymExercises)
+                    case .custom: CustomExerciseView(exerciseList: $viewModel.customExercises)
+                    case .karate: KarateExerciseView(exerciseList: $viewModel.karateExercises)
                 }
             }
         }
@@ -50,7 +50,7 @@ struct TrainingView: View {
             Button(viewModel.buttonTitle) {
                 viewModel.saveOrDeleteTraining(fromContext: modelContext)
             }
-            .disabled(viewModel.isExerciseListEmpty || isEditingExercise)
+            .disabled(viewModel.isExerciseListEmpty)
             .font(.title)
             .buttonStyle(.borderedProminent)
         }

@@ -13,6 +13,8 @@ class TrainingViewModel: ObservableObject {
     @Published var trainingName: String
     @Published var customExercises: [CustomExercise]
     @Published var gymExercises: [GymExercise]
+    @Published var karateExercises: [KarateExercise]
+    @Published var scheduledAt: Date
     private let training: Training
     
     let trainingType: TrainingType
@@ -22,11 +24,17 @@ class TrainingViewModel: ObservableObject {
     }
     
     var navigationTitle: String {
-         "\(training.type == .gym ? "Gym" : "Custom") training"
+        switch trainingType {
+            case .gym: return "Gym training"
+            case .karate: return "Karate training"
+            case .custom: return "Custom training"
+        }
     }
     
     var isExerciseListEmpty: Bool {
-        customExercises.isEmpty && gymExercises.isEmpty
+        customExercises.isEmpty
+        && gymExercises.isEmpty
+        && karateExercises.isEmpty
     }
     
     var isCreateTraining: Bool {
@@ -38,7 +46,9 @@ class TrainingViewModel: ObservableObject {
         self.trainingName = training.name ?? ""
         self.customExercises = training.customExercises
         self.gymExercises = training.gymExercises
+        self.karateExercises = training.karateExercises
         self.trainingType = training.type
+        self.scheduledAt = training.scheduledAt
     }
     
     func saveOrDeleteTraining(fromContext modelContext: ModelContext) {
@@ -50,6 +60,7 @@ class TrainingViewModel: ObservableObject {
     private func createTraining(modelContext: ModelContext) {
         let newTraining = Training(
             name: trainingName,
+            scheduledAt: scheduledAt,
             gymExercises: gymExercises,
             customExercises: customExercises,
             type: training.type
@@ -62,6 +73,7 @@ class TrainingViewModel: ObservableObject {
         switch training.type {
         case .gym: training.gymExercises = gymExercises
         case .custom: training.customExercises = customExercises
+        case .karate: training.karateExercises = karateExercises
         }
     }
 }

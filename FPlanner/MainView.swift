@@ -12,14 +12,29 @@ struct MainView: View {
         NavigationStack {
             List {
                 NavigationLink(value: TrainingType.gym)  {
-                    Text("Create Gym training")
-                        .font(.title2)
+                    HStack {
+                        Image(systemName: "dumbbell.fill")
+                        Text("Gym training")
+                            .font(.title3)
+                    }
                 }
                 .padding()
                 
                 NavigationLink(value: TrainingType.custom)  {
-                    Text("Create Custom training")
-                        .font(.title2)
+                    HStack {
+                        Image(systemName: "figure.mixed.cardio")
+                        Text("Custom training")
+                            .font(.title3)
+                    }
+                }
+                .padding()
+                
+                NavigationLink(value: TrainingType.karate)  {
+                    HStack {
+                        Image(systemName: "figure.martial.arts")
+                        Text("Karate training")
+                            .font(.title3)
+                    }
                 }
                 .padding()
             }

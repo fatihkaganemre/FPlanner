@@ -8,11 +8,6 @@
 import Foundation
 import SwiftData
 
-enum TrainingType: Codable, Hashable, Equatable {
-    case gym
-    case custom
-}
-
 struct GymExercise: Codable, Identifiable, Hashable {
     var id = UUID()
     var name: String
@@ -36,5 +31,18 @@ struct CustomExercise: Codable, Identifiable, Hashable {
     init(name: String = "", description: String = "") {
         self.name = name
         self.description = description
+    }
+}
+
+struct KarateExercise: Codable, Identifiable, Hashable {
+    var id = UUID()
+    var name: String
+    var description: String
+    var durationInMin: String
+    
+    init(name: String = "", description: String = "", durationInMin: String = "") {
+        self.name = name
+        self.description = description
+        self.durationInMin = durationInMin
     }
 }
