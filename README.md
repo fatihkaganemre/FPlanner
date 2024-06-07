@@ -1,7 +1,7 @@
 # FPlanner
+It is a sample app for trying SwiftUI and SwiftData
 It allows you to:
-- Create gym training
-- Create custom training
+- Create training
 - Display list of trainings
 - Edit/Remove trainings and exercises
 
@@ -15,7 +15,6 @@ It allows you to:
 - I should add some kind of routing for going back after saving or creating a training
 - Handle TODO comments
 - Think of adding Tests if needed
-- Updating single Exercise !! 
 - Update the UI , it looks very ugly :/
 - For every update of exercise try to create a performance graph !!
 

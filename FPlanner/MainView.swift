@@ -11,32 +11,16 @@ struct MainView: View {
     var body: some View {
         NavigationStack {
             List {
-                NavigationLink(value: TrainingType.gym)  {
-                    HStack {
-                        Image(systemName: "dumbbell.fill")
-                        Text("Gym training")
-                            .font(.title3)
+                ForEach(TrainingType.allCases) { type in
+                    NavigationLink(value: type)  {
+                        HStack {
+                            Image(systemName: type.imageName)
+                            Text("\(type.title) training")
+                                .font(.title3)
+                        }
                     }
+                    .padding()
                 }
-                .padding()
-                
-                NavigationLink(value: TrainingType.custom)  {
-                    HStack {
-                        Image(systemName: "figure.mixed.cardio")
-                        Text("Custom training")
-                            .font(.title3)
-                    }
-                }
-                .padding()
-                
-                NavigationLink(value: TrainingType.karate)  {
-                    HStack {
-                        Image(systemName: "figure.martial.arts")
-                        Text("Karate training")
-                            .font(.title3)
-                    }
-                }
-                .padding()
             }
             .navigationTitle("Create a training")
             .navigationDestination(for: TrainingType.self) { type in

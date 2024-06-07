@@ -14,55 +14,20 @@ struct TrainingsView: View {
 
     var body: some View {
         NavigationStack {
-            List {
-                let gymTrainings = trainings.filter { $0.type == .gym }
-                let customTrainings = trainings.filter { $0.type == .custom}
-                let karateTrainings = trainings.filter { $0.type == .karate}
-                
-                if !gymTrainings.isEmpty {
-                    Section("Gym trainings") {
-                        ForEach(gymTrainings) { training in
+            List(TrainingType.allCases) { type in
+                let trainingsWithType = trainings.filter { $0.type == type }
+                if !trainingsWithType.isEmpty {
+                    Section("\(type.title) trainings") {
+                        ForEach(trainingsWithType) { training in
                             NavigationLink(value: training) {
                                 VStack(alignment: .leading) {
                                     Text(training.name ?? "").font(.title)
-                                    Text("Created: \(training.creationDate.formatted(date: .abbreviated, time: .shortened))")
+                                    Text("Created: \(training.scheduledAt.formatted(date: .abbreviated, time: .shortened))")
                                 }
                             }
                         }
                         .onDelete {
-                            deleteTraining(type: .karate, offsets: $0)
-                        }
-                    }
-                }
-                
-                if !customTrainings.isEmpty {
-                    Section("Custom Trainings") {
-                        ForEach(customTrainings) { training in
-                            NavigationLink(value: training) {
-                                VStack(alignment: .leading) {
-                                    Text(training.name ?? "").font(.title)
-                                    Text("Scheduled: \(training.creationDate.formatted(date: .abbreviated, time: .shortened))")
-                                }
-                            }
-                        }
-                        .onDelete {
-                            deleteTraining(type: .karate, offsets: $0)
-                        }
-                    }
-                }
-                
-                if !karateTrainings.isEmpty {
-                    Section("Karate Trainings") {
-                        ForEach(karateTrainings) { training in
-                            NavigationLink(value: training) {
-                                VStack(alignment: .leading) {
-                                    Text(training.name ?? "").font(.title)
-                                    Text("Scheduled: \(training.scheduledAt.formatted(date: .abbreviated, time: .shortened))")
-                                }
-                            }
-                        }
-                        .onDelete {
-                            deleteTraining(type: .karate, offsets: $0)
+                            deleteTraining(type: type, offsets: $0)
                         }
                     }
                 }

@@ -13,29 +13,39 @@ struct TrainingView: View {
     @StateObject var viewModel: TrainingViewModel
 
     var body: some View {
-        List {
-            Section("Title") {
-                TextField("Enter training name", text: $viewModel.trainingName)
-                    .font(.title2)
-                DatePicker("Scheduled at", selection: $viewModel.scheduledAt)
-            }
-            
-            Section {
-                ExerciseListView(
-                    trainingType: viewModel.trainingType,
-                    customExercises: $viewModel.customExercises,
-                    gymExercises: $viewModel.gymExercises, 
-                    karateExercises: $viewModel.karateExercises
-                )
-            }
-            
-            Section("Add an exercise") {
-                switch viewModel.trainingType {
-                    case .gym: GymExerciseView(exerciseList: $viewModel.gymExercises)
-                    case .custom: CustomExerciseView(exerciseList: $viewModel.customExercises)
-                    case .karate: KarateExerciseView(exerciseList: $viewModel.karateExercises)
+        VStack {
+            Form {
+                Section("Title") {
+                    TextField("Enter training name", text: $viewModel.trainingName)
+                        .font(.title2)
+                    DatePicker("Scheduled at", selection: $viewModel.scheduledAt)
+                }
+                
+                Section {
+                    ExerciseListView(
+                        trainingType: viewModel.trainingType,
+                        customExercises: $viewModel.customExercises,
+                        gymExercises: $viewModel.gymExercises,
+                        karateExercises: $viewModel.karateExercises
+                    )
+                }
+                
+                Section("Add an exercise") {
+                    switch viewModel.trainingType {
+                        case .gym: GymExerciseView(exerciseList: $viewModel.gymExercises)
+                        case .custom: CustomExerciseView(exerciseList: $viewModel.customExercises)
+                        case .karate: KarateExerciseView(exerciseList: $viewModel.karateExercises)
+                    }
                 }
             }
+
+
+            Button(viewModel.buttonTitle) {
+                viewModel.saveOrDeleteTraining(fromContext: modelContext)
+            }
+            .disabled(viewModel.isExerciseListEmpty)
+            .font(.title)
+            .buttonStyle(.borderedProminent)
         }
         .navigationTitle(viewModel.navigationTitle)
         .toolbar {
@@ -45,18 +55,20 @@ struct TrainingView: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        
-        Section {
-            Button(viewModel.buttonTitle) {
-                viewModel.saveOrDeleteTraining(fromContext: modelContext)
-            }
-            .disabled(viewModel.isExerciseListEmpty)
-            .font(.title)
-            .buttonStyle(.borderedProminent)
-        }
+        .background(Color.clear)
     }
 }
 
 #Preview {
-    TrainingView(viewModel: .init(training: .init(type: .custom)))
+    Group {
+        NavigationView {
+            TrainingView(viewModel: .init(training: .init(type: .custom)))
+        }
+//        NavigationView {
+//            TrainingView(viewModel: .init(training: .init(type: .gym)))
+//        }
+//        NavigationView {
+//            TrainingView(viewModel: .init(training: .init(type: .karate)))
+//        }
+    }
 }
