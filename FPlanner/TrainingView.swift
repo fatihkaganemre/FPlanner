@@ -44,14 +44,18 @@ struct TrainingView: View {
             Button {
                 viewModel.saveOrDeleteTraining(fromContext: modelContext)
             } label: {
-                Text(viewModel.buttonTitle).padding()
+                HStack {
+                    Spacer()
+                    Text(viewModel.buttonTitle).padding()
+                    Spacer()
+                }
             }
             .disabled(viewModel.isExerciseListEmpty)
             .font(.title)
             .foregroundColor(.white)
             .background(viewModel.isExerciseListEmpty ? Color.gray : Color("darkGreen"))
             .cornerRadius(10)
-
+            .padding()
         }
         .background(Color(.systemGray6))
         .navigationTitle(viewModel.navigationTitle)
