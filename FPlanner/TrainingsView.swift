@@ -22,7 +22,7 @@ struct TrainingsView: View {
                             NavigationLink(value: training) {
                                 VStack(alignment: .leading) {
                                     Text(training.name ?? "").font(.title)
-                                    Text("Created: \(training.scheduledAt.formatted(date: .abbreviated, time: .shortened))")
+                                    Text("Scheduled at: \(training.scheduledAt.formatted(date: .abbreviated, time: .shortened))")
                                 }
                             }
                         }
@@ -40,12 +40,14 @@ struct TrainingsView: View {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     EditButton()
                         .disabled(trainings.isEmpty)
+                        .foregroundStyle(
+                            trainings.isEmpty ? Color.gray : Color("darkGreen")
+                        )
                 }
             }
         }
     }
     
-
     private func deleteTraining(type: TrainingType, offsets: IndexSet) {
         withAnimation {
             for index in offsets {

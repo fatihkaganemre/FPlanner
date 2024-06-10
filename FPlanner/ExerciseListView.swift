@@ -63,10 +63,12 @@ struct ExerciseListView: View {
     }
     
     func move(from source: IndexSet, to destination: Int) {
-        switch trainingType {
-        case .gym: gymExercises.move(fromOffsets: source, toOffset: destination)
-        case .custom: customExercises.move(fromOffsets: source, toOffset: destination)
-        case .karate: karateExercises.move(fromOffsets: source, toOffset: destination)
+        withAnimation {
+            switch trainingType {
+                case .gym: gymExercises.move(fromOffsets: source, toOffset: destination)
+                case .custom: customExercises.move(fromOffsets: source, toOffset: destination)
+                case .karate: karateExercises.move(fromOffsets: source, toOffset: destination)
+            }
         }
     }
 }

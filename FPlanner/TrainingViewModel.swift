@@ -24,11 +24,7 @@ class TrainingViewModel: ObservableObject {
     }
     
     var navigationTitle: String {
-        switch trainingType {
-            case .gym: return "Gym training"
-            case .karate: return "Karate training"
-            case .custom: return "Custom training"
-        }
+        "\(trainingType.title) training"
     }
     
     var isExerciseListEmpty: Bool {

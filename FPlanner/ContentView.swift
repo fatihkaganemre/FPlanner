@@ -20,6 +20,7 @@ struct ContentView: View {
                     Label("Trainings", systemImage: "list.dash")
                 }
         }
+        .tint(Color("darkGreen"))
     }
 }
 

@@ -14,20 +14,22 @@ struct TrainingView: View {
 
     var body: some View {
         VStack {
-            Form {
+            List {
                 Section("Title") {
                     TextField("Enter training name", text: $viewModel.trainingName)
                         .font(.title2)
                     DatePicker("Scheduled at", selection: $viewModel.scheduledAt)
                 }
                 
-                Section {
-                    ExerciseListView(
-                        trainingType: viewModel.trainingType,
-                        customExercises: $viewModel.customExercises,
-                        gymExercises: $viewModel.gymExercises,
-                        karateExercises: $viewModel.karateExercises
-                    )
+                if !viewModel.isExerciseListEmpty {
+                    Section("Exercises") {
+                        ExerciseListView(
+                            trainingType: viewModel.trainingType,
+                            customExercises: $viewModel.customExercises,
+                            gymExercises: $viewModel.gymExercises,
+                            karateExercises: $viewModel.karateExercises
+                        )
+                    }
                 }
                 
                 Section("Add an exercise") {
@@ -38,37 +40,36 @@ struct TrainingView: View {
                     }
                 }
             }
-
-
-            Button(viewModel.buttonTitle) {
+            
+            Button {
                 viewModel.saveOrDeleteTraining(fromContext: modelContext)
+            } label: {
+                Text(viewModel.buttonTitle).padding()
             }
             .disabled(viewModel.isExerciseListEmpty)
             .font(.title)
-            .buttonStyle(.borderedProminent)
+            .foregroundColor(.white)
+            .background(viewModel.isExerciseListEmpty ? Color.gray : Color("darkGreen"))
+            .cornerRadius(10)
+
         }
+        .background(Color(.systemGray6))
         .navigationTitle(viewModel.navigationTitle)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 EditButton()
                     .disabled(viewModel.isExerciseListEmpty)
+                    .foregroundStyle(
+                        viewModel.isExerciseListEmpty ? Color.gray : Color("darkGreen")
+                    )
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        .background(Color.clear)
     }
 }
 
 #Preview {
-    Group {
-        NavigationView {
-            TrainingView(viewModel: .init(training: .init(type: .custom)))
-        }
-//        NavigationView {
-//            TrainingView(viewModel: .init(training: .init(type: .gym)))
-//        }
-//        NavigationView {
-//            TrainingView(viewModel: .init(training: .init(type: .karate)))
-//        }
+    NavigationView {
+        TrainingView(viewModel: .init(training: .init(type: .custom)))
     }
 }
