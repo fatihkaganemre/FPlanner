@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import SwiftData
 
 class TrainingsViewModel: ObservableObject {
     @Published var searchText: String = ""
@@ -30,7 +31,7 @@ class TrainingsViewModel: ObservableObject {
         }
     }
 
-    private func shareTraining(_ training: Training?) {
+    func shareTraining(_ training: Training?) {
         guard let training = training else { return }
         
         // Prepare items to share

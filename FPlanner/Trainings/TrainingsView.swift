@@ -55,13 +55,15 @@ struct TrainingsView: View {
             ForEach(trainings) { training in
                 TrainingCellView(training: training)
                     .swipeActions(edge: .leading) {
-                        Button(action: { shareTraining(training: training) }) {
-                            Label("Share", systemImage: "square.and.arrow.up")
+                        Button("Share", systemImage: "square.and.arrow.up") {
+                            viewModel.shareTraining(training)
                         }
                         .tint(.blue)
                     }
             }
-            .onDelete { offsets in viewModel.deleteTraining(type: type, offsets: offsets) }
+            .onDelete { offsets in
+                viewModel.deleteTraining(type: type, offsets: offsets, context: modelContext)
+            }
         }
     }
 }

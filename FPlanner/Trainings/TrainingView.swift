@@ -41,7 +41,7 @@ struct TrainingView: View {
                 }
             }
             
-            saveOrDeleteButton
+            SaveOrDeleteButton()
         }
         .background(Color(.systemGray6))
         .navigationTitle(viewModel.navigationTitle)
@@ -57,7 +57,8 @@ struct TrainingView: View {
         .toolbar(.hidden, for: .tabBar)
     }
     
-    private var saveOrDeleteButton: some View {
+    @ViewBuilder
+    private func SaveOrDeleteButton() -> some View {
         Button {
             viewModel.saveOrDeleteTraining(fromContext: modelContext)
         } label: {
