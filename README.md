@@ -1,7 +1,7 @@
 # FPlanner
 It is a sample app for trying SwiftUI and SwiftData
 It allows you to:
-- Create training
+- Create training (gym , karate, custom)
 - Display list of trainings
 - Edit/Remove trainings and exercises
 
@@ -22,4 +22,3 @@ It allows you to:
 - Try to add Siri feature the the app (App Intents API)
 - Is there any way to ask ChatGPT in the app for better training ? 
 - Maybe use Image playground sheet to let users to add some image to training
-

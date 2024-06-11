@@ -8,6 +8,7 @@
 import SwiftUI
 import SwiftData
 
+@MainActor
 class TrainingsViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published private var trainings: [Training] = []

@@ -10,6 +10,7 @@ import SwiftData
 
 struct TrainingView: View {
     @Environment(\.modelContext) private var modelContext
+    @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: TrainingViewModel
 
     var body: some View {
@@ -61,6 +62,7 @@ struct TrainingView: View {
     private func SaveOrDeleteButton() -> some View {
         Button {
             viewModel.saveOrDeleteTraining(fromContext: modelContext)
+            dismiss()
         } label: {
             HStack {
                 Spacer()

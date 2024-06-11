@@ -25,9 +25,7 @@ struct MainView: View {
                 .listRowBackground(Color(red: 6/255, green: 85/255, blue: 53/255))
             }
             .listSectionSpacing(.compact)
-            .navigationTitle(
-                Text("Create a training").foregroundStyle(.white)
-            )
+            .navigationTitle("Create a training")
             .navigationDestination(for: TrainingType.self) { type in
                 TrainingView(viewModel: .init(training: .init(type: type)))
             }
