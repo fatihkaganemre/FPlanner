@@ -16,7 +16,7 @@ struct ExerciseListView: View {
     var body: some View {
         switch trainingType {
         case .gym:
-            ForEach(gymExercises) { exercise in
+            ForEach(gymExercises, id: \.name) { exercise in
                 VStack(alignment: .leading) {
                     Text(exercise.name).font(.headline)
                     HStack {

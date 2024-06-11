@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D1345892C186336001EF46E /* TrainingCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1345882C186336001EF46E /* TrainingCellView.swift */; };
+		3D13458E2C18A4BD001EF46E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13458D2C18A4BD001EF46E /* ShareSheet.swift */; };
+		3D1345902C18A7B3001EF46E /* TrainingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13458F2C18A7B3001EF46E /* TrainingsViewModel.swift */; };
 		3D7399A02C047F2000B647C0 /* FPlannerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D73999F2C047F2000B647C0 /* FPlannerApp.swift */; };
 		3D7399A22C047F2000B647C0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399A12C047F2000B647C0 /* ContentView.swift */; };
 		3D7399A42C047F2000B647C0 /* Training.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399A32C047F2000B647C0 /* Training.swift */; };
@@ -47,6 +50,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D1345882C186336001EF46E /* TrainingCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingCellView.swift; sourceTree = "<group>"; };
+		3D13458D2C18A4BD001EF46E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
+		3D13458F2C18A7B3001EF46E /* TrainingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingsViewModel.swift; sourceTree = "<group>"; };
 		3D73999C2C047F2000B647C0 /* FPlanner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FPlanner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D73999F2C047F2000B647C0 /* FPlannerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPlannerApp.swift; sourceTree = "<group>"; };
 		3D7399A12C047F2000B647C0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -97,6 +103,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D13458A2C186AA1001EF46E /* Trainings */ = {
+			isa = PBXGroup;
+			children = (
+				3D13458F2C18A7B3001EF46E /* TrainingsViewModel.swift */,
+				3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */,
+				3D1345882C186336001EF46E /* TrainingCellView.swift */,
+				3DF0083C2C0F35B900ECE37C /* TrainingViewModel.swift */,
+				3DF007C42C0B2D5400ECE37C /* TrainingView.swift */,
+			);
+			path = Trainings;
+			sourceTree = "<group>";
+		};
+		3D13458C2C18A4A8001EF46E /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				3D13458D2C18A4BD001EF46E /* ShareSheet.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
 		3D7399932C047F2000B647C0 = {
 			isa = PBXGroup;
 			children = (
@@ -125,11 +151,9 @@
 				3D73999F2C047F2000B647C0 /* FPlannerApp.swift */,
 				3D7399A12C047F2000B647C0 /* ContentView.swift */,
 				3DF007C12C0B2AD600ECE37C /* MainView.swift */,
-				3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */,
-				3DF0083C2C0F35B900ECE37C /* TrainingViewModel.swift */,
-				3DF007C42C0B2D5400ECE37C /* TrainingView.swift */,
-				3DF008442C10A76400ECE37C /* ExerciseListView.swift */,
-				3DF008482C11B56B00ECE37C /* ExerciseViews */,
+				3D13458A2C186AA1001EF46E /* Trainings */,
+				3DF008482C11B56B00ECE37C /* Exercises */,
+				3D13458C2C18A4A8001EF46E /* Helpers */,
 				3D7399A52C047F2200B647C0 /* Assets.xcassets */,
 				3D7399A72C047F2200B647C0 /* Preview Content */,
 			);
@@ -172,14 +196,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		3DF008482C11B56B00ECE37C /* ExerciseViews */ = {
+		3DF008482C11B56B00ECE37C /* Exercises */ = {
 			isa = PBXGroup;
 			children = (
+				3DF008442C10A76400ECE37C /* ExerciseListView.swift */,
 				3DF007C82C0C553B00ECE37C /* GymExerciseView.swift */,
 				3DF007CA2C0C56A100ECE37C /* CustomExerciseView.swift */,
 				3DF0084B2C11B59D00ECE37C /* KarateExerciseView.swift */,
 			);
-			path = ExerciseViews;
+			path = Exercises;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,13 +342,16 @@
 				3DF0083D2C0F35B900ECE37C /* TrainingViewModel.swift in Sources */,
 				3DF007C22C0B2AD600ECE37C /* MainView.swift in Sources */,
 				3DF007B32C074AE700ECE37C /* Exercise.swift in Sources */,
+				3D1345892C186336001EF46E /* TrainingCellView.swift in Sources */,
 				3DF008452C10A76400ECE37C /* ExerciseListView.swift in Sources */,
 				3DF007CB2C0C56A100ECE37C /* CustomExerciseView.swift in Sources */,
+				3D13458E2C18A4BD001EF46E /* ShareSheet.swift in Sources */,
 				3DF008472C11B13800ECE37C /* TrainingType.swift in Sources */,
 				3DF007C02C0B2A4F00ECE37C /* TrainingsView.swift in Sources */,
 				3DF007C52C0B2D5400ECE37C /* TrainingView.swift in Sources */,
 				3D7399A22C047F2000B647C0 /* ContentView.swift in Sources */,
 				3D7399A42C047F2000B647C0 /* Training.swift in Sources */,
+				3D1345902C18A7B3001EF46E /* TrainingsViewModel.swift in Sources */,
 				3DF007C92C0C553C00ECE37C /* GymExerciseView.swift in Sources */,
 				3DF0084C2C11B59D00ECE37C /* KarateExerciseView.swift in Sources */,
 				3D7399A02C047F2000B647C0 /* FPlannerApp.swift in Sources */,

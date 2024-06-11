@@ -10,11 +10,16 @@ It allows you to:
 - SwiftData
 
 # What is next: 
-- Remove or Reduce the duplication
-- Move out the logic from UI
-- I should add some kind of routing for going back after saving or creating a training
-- Handle TODO comments
-- Think of adding Tests if needed
+- Routing 
+- Add Tests //  Try out swift testing framework
 - Update the UI , it looks very ugly :/
 - For every update of exercise try to create a performance graph !!
+- Notifying user for the training 
+- Tracking the exercises and ringing an alarm once the exercise completes
+    - Live activity widget configuration
+    - .supplementalActivityFamilies([.small]) for watchOS
+- Add sharing training via app or via notes app ! // Swipe action 
+- Try to add Siri feature the the app (App Intents API)
+- Is there any way to ask ChatGPT in the app for better training ? 
+- Maybe use Image playground sheet to let users to add some image to training
 

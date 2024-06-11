@@ -41,21 +41,7 @@ struct TrainingView: View {
                 }
             }
             
-            Button {
-                viewModel.saveOrDeleteTraining(fromContext: modelContext)
-            } label: {
-                HStack {
-                    Spacer()
-                    Text(viewModel.buttonTitle).padding()
-                    Spacer()
-                }
-            }
-            .disabled(viewModel.isExerciseListEmpty)
-            .font(.title)
-            .foregroundColor(.white)
-            .background(viewModel.isExerciseListEmpty ? Color.gray : Color("darkGreen"))
-            .cornerRadius(10)
-            .padding()
+            saveOrDeleteButton
         }
         .background(Color(.systemGray6))
         .navigationTitle(viewModel.navigationTitle)
@@ -69,6 +55,24 @@ struct TrainingView: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
+    }
+    
+    private var saveOrDeleteButton: some View {
+        Button {
+            viewModel.saveOrDeleteTraining(fromContext: modelContext)
+        } label: {
+            HStack {
+                Spacer()
+                Text(viewModel.buttonTitle).padding()
+                Spacer()
+            }
+        }
+        .disabled(viewModel.isExerciseListEmpty)
+        .font(.title)
+        .foregroundColor(.white)
+        .background(viewModel.isExerciseListEmpty ? Color.gray : Color("darkGreen"))
+        .cornerRadius(10)
+        .padding()
     }
 }
 
