@@ -10,12 +10,13 @@ import SwiftData
 
 @Model
 final class Training {
+    @Attribute(.unique) var name: String?
     var creationDate: Date
     var scheduledAt: Date
-    var name: String?
     var gymExercises: [GymExercise]
     var karateExercises: [KarateExercise]
     var customExercises: [CustomExercise]
+    var repeats: Bool
     let type: TrainingType
     
     init(
@@ -25,6 +26,7 @@ final class Training {
         gymExercises: [GymExercise] = [],
         customExercises: [CustomExercise] = [],
         karateExercises: [KarateExercise] = [],
+        repeats: Bool = false,
         type: TrainingType
     ) {
         self.name = name
@@ -33,6 +35,7 @@ final class Training {
         self.gymExercises = gymExercises
         self.customExercises = customExercises
         self.karateExercises = karateExercises
+        self.repeats = repeats
         self.type = type
     }
 }
@@ -42,7 +45,7 @@ extension Training {
         name: String
     ) -> Predicate<Training> {
         return #Predicate<Training> { training  in
-            training.name == name
+            training.name?.contains(name) ?? false
         }
     }
 }

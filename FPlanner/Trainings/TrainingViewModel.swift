@@ -15,7 +15,10 @@ class TrainingViewModel: ObservableObject {
     @Published var gymExercises: [GymExercise]
     @Published var karateExercises: [KarateExercise]
     @Published var scheduledAt: Date
+    @Published var isTrainingRepeats: Bool = false
+    
     private let training: Training
+    private let notificationService: TrainingNotificationService
     
     let trainingType: TrainingType
 
@@ -37,8 +40,9 @@ class TrainingViewModel: ObservableObject {
         training.name == nil
     }
     
-    init(training: Training) {
+    init(training: Training, notificationService: TrainingNotificationService = .init()) {
         self.training = training
+        self.notificationService = notificationService
         self.trainingName = training.name ?? ""
         self.customExercises = training.customExercises
         self.gymExercises = training.gymExercises
@@ -60,17 +64,33 @@ class TrainingViewModel: ObservableObject {
             gymExercises: gymExercises,
             customExercises: customExercises,
             karateExercises: karateExercises,
+            repeats: isTrainingRepeats,
             type: training.type
         )
         modelContext.insert(newTraining)
+        scheduleNotification(for: newTraining)
     }
     
     private func saveTraining() {
         training.name = trainingName
+        training.scheduledAt = scheduledAt
+        training.repeats = isTrainingRepeats
+        
         switch training.type {
         case .gym: training.gymExercises = gymExercises
         case .custom: training.customExercises = customExercises
         case .karate: training.karateExercises = karateExercises
+        }
+    }
+    
+    private func scheduleNotification(for training: Training) {
+        Task {
+            do {
+                try await notificationService.createNotification(forTraining: training)
+            } catch {
+                // TODO: Handle error appropriately, perhaps show an alert or log the error.
+                print(error.localizedDescription)
+            }
         }
     }
 }

@@ -20,6 +20,7 @@ struct TrainingView: View {
                     TextField("Enter training name", text: $viewModel.trainingName)
                         .font(.title2)
                     DatePicker("Scheduled at", selection: $viewModel.scheduledAt)
+                    Toggle("Repeat", isOn: $viewModel.isTrainingRepeats)
                 }
                 
                 if !viewModel.isExerciseListEmpty {

@@ -15,9 +15,9 @@ class TrainingsViewModel: ObservableObject {
     @Published var isShowingShareSheet = false
     var itemsToShare: [Any] = []
     var searchResults: [Training] {
-        return searchText.isEmpty
-            ? trainings
-            : trainings.filter { $0.name?.contains(searchText) ?? false }
+        guard !searchText.isEmpty else { return trainings }
+        let searchResults = try? trainings.filter(Training.predicate(name: searchText))
+        return searchResults ?? []
     }
 
     func updateTrainings(_ newTrainings: [Training]) {

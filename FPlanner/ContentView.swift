@@ -21,6 +21,16 @@ struct ContentView: View {
                 }
         }
         .tint(Color("darkGreen"))
+        .onAppear {
+            Task {
+                do {
+                    try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .provisional])
+                } catch {
+                    // TODO: - Handle error
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
 }
 
