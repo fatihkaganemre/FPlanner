@@ -8,6 +8,12 @@
 import Foundation
 import SwiftData
 
+let mockGymExercises: [GymExercise] = [
+    GymExercise(name: "Exercise1", numberOfReps: "12", numberOfSets: "3", maxWeight: "120"),
+    GymExercise(name: "Exercise2", numberOfReps: "12", numberOfSets: "3", maxWeight: "100"),
+    GymExercise(name: "Exercise3", numberOfReps: "12", numberOfSets: "3", maxWeight: "90")
+]
+
 struct GymExercise: Codable, Identifiable, Hashable {
     var id = UUID()
     var name: String
@@ -23,6 +29,12 @@ struct GymExercise: Codable, Identifiable, Hashable {
     }
 }
 
+let mockCustomExercises: [CustomExercise] = [
+    CustomExercise(name: "Exercise1", description: "Desc1"),
+    CustomExercise(name: "Exercise2", description: "Desc2"),
+    CustomExercise(name: "Exercise3", description: "Desc3")
+]
+
 struct CustomExercise: Codable, Identifiable, Hashable {
     var id = UUID()
     var name: String
@@ -33,6 +45,12 @@ struct CustomExercise: Codable, Identifiable, Hashable {
         self.description = description
     }
 }
+
+let mockKarateExercises: [KarateExercise] = [
+    KarateExercise(name: "Exercise1", description: "Desc1", durationInMin: "1"),
+    KarateExercise(name: "Exercise1", description: "Desc1", durationInMin: "1"),
+    KarateExercise(name: "Exercise1", description: "Desc1", durationInMin: "1")
+]
 
 struct KarateExercise: Codable, Identifiable, Hashable {
     var id = UUID()

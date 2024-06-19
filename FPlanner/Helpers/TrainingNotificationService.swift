@@ -8,14 +8,24 @@
 import Foundation
 import UserNotifications
 
-struct TrainingNotificationService {
+enum NotificationAction: String {
+    case start = "START_ACTION"
+    
+    var title: String {
+        return "Start"
+    }
+}
+
+protocol TrainingNotificationServiceProtocol {
+    func createNotification(forTraining training: Training) async throws
+}
+
+class TrainingNotificationService: NSObject, TrainingNotificationServiceProtocol {
     private let calendar: Calendar
     private let notificationCenter: UNUserNotificationCenter
+    static let categoryId = "START_TRAINING"
     
-    init(
-        calendar: Calendar = .current,
-        notificationCenter: UNUserNotificationCenter = .current()
-    ) {
+    init(calendar: Calendar = .current, notificationCenter: UNUserNotificationCenter = .current()) {
         self.calendar = calendar
         self.notificationCenter = notificationCenter
     }
@@ -24,6 +34,7 @@ struct TrainingNotificationService {
         guard try await requestNotificationAuthorization() else { return }
         let content = makeNotificationContent(forTraining: training)
         let trigger = makeTrigger(forTraining: training)
+        setNotificationCategories(forTraining: training)
         try await registerNotification(content: content, trigger: trigger)
     }
     
@@ -32,6 +43,9 @@ struct TrainingNotificationService {
         content.title = training.name ?? "Training"
         content.body = "Scheduled at: \(training.scheduledAt.formatted(date: .omitted, time: .shortened))"
         content.sound = .default
+        content.targetContentIdentifier = training.name
+        content.categoryIdentifier = TrainingNotificationService.categoryId
+        content.interruptionLevel = .timeSensitive
         return content
     }
     
@@ -40,10 +54,10 @@ struct TrainingNotificationService {
             [.year, .month, .day, .hour, .minute],
             from: training.scheduledAt
         )
-           
-        // Create the trigger as a repeating event.
         return UNCalendarNotificationTrigger(
-            dateMatching: dateComponents, repeats: training.repeats)
+            dateMatching: dateComponents,
+            repeats: training.repeats
+        )
     }
     
     private func registerNotification(
@@ -56,14 +70,27 @@ struct TrainingNotificationService {
             content: content,
             trigger: trigger
         )
-        let notificationCenter = UNUserNotificationCenter.current()
-        // Schedule the request with the system.
         try await notificationCenter.add(request)
     }
     
     private func requestNotificationAuthorization() async throws -> Bool {
-        try await notificationCenter.requestAuthorization(options: [.alert, .sound, .badge, .provisional])
-        let settings = await notificationCenter.notificationSettings()
-        return settings.authorizationStatus == .authorized || settings.authorizationStatus == .provisional
+        try await notificationCenter.requestAuthorization(options: [.alert, .sound, .badge])
+    }
+    
+    private func setNotificationCategories(forTraining training: Training) {
+        let actionIcon = UNNotificationActionIcon(systemImageName: training.type.imageName)
+        let startAction = UNNotificationAction(
+            identifier: NotificationAction.start.rawValue,
+            title: NotificationAction.start.title,
+            options: [],
+            icon: actionIcon
+        )
+        let startTrainingCategory = UNNotificationCategory(
+            identifier: TrainingNotificationService.categoryId,
+            actions: [startAction],
+            intentIdentifiers: [],
+            options: []
+        )
+        notificationCenter.setNotificationCategories([startTrainingCategory])
     }
 }

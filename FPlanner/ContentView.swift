@@ -7,8 +7,13 @@
 
 import SwiftUI
 import SwiftData
+import UserNotifications
+import Combine
 
 struct ContentView: View {
+    @Query private var trainings: [Training]
+    @EnvironmentObject private var notificationObserver: TrainingNotificationObserver
+    
     var body: some View {
         TabView {
             MainView()
@@ -21,16 +26,12 @@ struct ContentView: View {
                 }
         }
         .tint(Color("darkGreen"))
-        .onAppear {
-            Task {
-                do {
-                    try await UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge, .provisional])
-                } catch {
-                    // TODO: - Handle error
-                    print(error.localizedDescription)
-                }
+        .sheet(isPresented: $notificationObserver.didReceiveNotification, content: {
+            if let trainingName = notificationObserver.receivedNotification?.targetContentIdentifier,
+               let training = trainings.first(where: { $0.name == trainingName }) {
+                StartTrainingView(training: training)
             }
-        }
+        })
     }
 }
 

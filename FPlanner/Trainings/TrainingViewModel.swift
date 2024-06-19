@@ -18,7 +18,7 @@ class TrainingViewModel: ObservableObject {
     @Published var isTrainingRepeats: Bool = false
     
     private let training: Training
-    private let notificationService: TrainingNotificationService
+    private let notificationService: TrainingNotificationServiceProtocol
     
     let trainingType: TrainingType
 
@@ -40,7 +40,10 @@ class TrainingViewModel: ObservableObject {
         training.name == nil
     }
     
-    init(training: Training, notificationService: TrainingNotificationService = .init()) {
+    init(
+        training: Training,
+        notificationService: TrainingNotificationServiceProtocol = TrainingNotificationService()
+    ) {
         self.training = training
         self.notificationService = notificationService
         self.trainingName = training.name ?? ""
@@ -75,6 +78,10 @@ class TrainingViewModel: ObservableObject {
         training.name = trainingName
         training.scheduledAt = scheduledAt
         training.repeats = isTrainingRepeats
+        
+        if training.scheduledAt > Date.now {
+            scheduleNotification(for: training)
+        }
         
         switch training.type {
         case .gym: training.gymExercises = gymExercises

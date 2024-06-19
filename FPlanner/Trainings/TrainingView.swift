@@ -12,7 +12,7 @@ struct TrainingView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
     @StateObject var viewModel: TrainingViewModel
-
+    
     var body: some View {
         VStack {
             List {

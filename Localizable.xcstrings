@@ -1,0 +1,99 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@ min" : {
+
+    },
+    "%@ reps" : {
+
+    },
+    "%@ sets" : {
+
+    },
+    "%@ training" : {
+
+    },
+    "%@ trainings" : {
+
+    },
+    "Add an exercise" : {
+
+    },
+    "Add Exercise" : {
+
+    },
+    "Create" : {
+
+    },
+    "Create a training" : {
+
+    },
+    "Description" : {
+
+    },
+    "Duration" : {
+
+    },
+    "Enter training name" : {
+
+    },
+    "Exercise name" : {
+
+    },
+    "Exercises" : {
+
+    },
+    "kg" : {
+
+    },
+    "Max weight" : {
+
+    },
+    "Max weight: %@kg" : {
+
+    },
+    "Max: %@ kg" : {
+
+    },
+    "min" : {
+
+    },
+    "Name" : {
+
+    },
+    "Number of reps" : {
+
+    },
+    "Number of sets" : {
+
+    },
+    "Repeat" : {
+
+    },
+    "Reps: %@" : {
+
+    },
+    "Scheduled at" : {
+
+    },
+    "Scheduled at: %@" : {
+
+    },
+    "Search by name" : {
+
+    },
+    "Sets: %@" : {
+
+    },
+    "Share" : {
+
+    },
+    "Title" : {
+
+    },
+    "Trainings" : {
+
+    }
+  },
+  "version" : "1.0"
+}

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D0ABE932C1C33740074F6C9 /* StartTrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0ABE922C1C33740074F6C9 /* StartTrainingView.swift */; };
+		3D0ABE972C1DA6330074F6C9 /* TrainingNotificationObserver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0ABE962C1DA6330074F6C9 /* TrainingNotificationObserver.swift */; };
+		3D0ABE992C217C8C0074F6C9 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3D0ABE982C217C8C0074F6C9 /* Localizable.xcstrings */; };
+		3D0ABE9D2C2219560074F6C9 /* StartGymTrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0ABE9C2C2219560074F6C9 /* StartGymTrainingView.swift */; };
+		3D0ABEA02C22DBD40074F6C9 /* StartKarateTrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0ABE9F2C22DBD30074F6C9 /* StartKarateTrainingView.swift */; };
+		3D0ABEA22C22DBE00074F6C9 /* StartCustomTrainingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0ABEA12C22DBE00074F6C9 /* StartCustomTrainingView.swift */; };
 		3D1345892C186336001EF46E /* TrainingCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1345882C186336001EF46E /* TrainingCellView.swift */; };
 		3D13458E2C18A4BD001EF46E /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13458D2C18A4BD001EF46E /* ShareSheet.swift */; };
 		3D1345902C18A7B3001EF46E /* TrainingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D13458F2C18A7B3001EF46E /* TrainingsViewModel.swift */; };
@@ -51,6 +57,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D0ABE922C1C33740074F6C9 /* StartTrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartTrainingView.swift; sourceTree = "<group>"; };
+		3D0ABE962C1DA6330074F6C9 /* TrainingNotificationObserver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingNotificationObserver.swift; sourceTree = "<group>"; };
+		3D0ABE982C217C8C0074F6C9 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		3D0ABE9C2C2219560074F6C9 /* StartGymTrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGymTrainingView.swift; sourceTree = "<group>"; };
+		3D0ABE9F2C22DBD30074F6C9 /* StartKarateTrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartKarateTrainingView.swift; sourceTree = "<group>"; };
+		3D0ABEA12C22DBE00074F6C9 /* StartCustomTrainingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCustomTrainingView.swift; sourceTree = "<group>"; };
 		3D1345882C186336001EF46E /* TrainingCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingCellView.swift; sourceTree = "<group>"; };
 		3D13458D2C18A4BD001EF46E /* ShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		3D13458F2C18A7B3001EF46E /* TrainingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingsViewModel.swift; sourceTree = "<group>"; };
@@ -106,6 +118,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D0ABE9E2C22D9FB0074F6C9 /* StartTraining */ = {
+			isa = PBXGroup;
+			children = (
+				3D0ABE922C1C33740074F6C9 /* StartTrainingView.swift */,
+				3D0ABE9C2C2219560074F6C9 /* StartGymTrainingView.swift */,
+				3D0ABE9F2C22DBD30074F6C9 /* StartKarateTrainingView.swift */,
+				3D0ABEA12C22DBE00074F6C9 /* StartCustomTrainingView.swift */,
+			);
+			path = StartTraining;
+			sourceTree = "<group>";
+		};
 		3D13458A2C186AA1001EF46E /* Trainings */ = {
 			isa = PBXGroup;
 			children = (
@@ -123,6 +146,7 @@
 			children = (
 				3D13458D2C18A4BD001EF46E /* ShareSheet.swift */,
 				3D1345912C18E3AA001EF46E /* TrainingNotificationService.swift */,
+				3D0ABE962C1DA6330074F6C9 /* TrainingNotificationObserver.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -130,6 +154,7 @@
 		3D7399932C047F2000B647C0 = {
 			isa = PBXGroup;
 			children = (
+				3D0ABE982C217C8C0074F6C9 /* Localizable.xcstrings */,
 				3DF007BB2C086BD200ECE37C /* README.md */,
 				3D73999E2C047F2000B647C0 /* FPlanner */,
 				3D7399B12C047F2200B647C0 /* FPlannerTests */,
@@ -156,6 +181,7 @@
 				3D73999F2C047F2000B647C0 /* FPlannerApp.swift */,
 				3D7399A12C047F2000B647C0 /* ContentView.swift */,
 				3DF007C12C0B2AD600ECE37C /* MainView.swift */,
+				3D0ABE9E2C22D9FB0074F6C9 /* StartTraining */,
 				3D13458A2C186AA1001EF46E /* Trainings */,
 				3DF008482C11B56B00ECE37C /* Exercises */,
 				3D13458C2C18A4A8001EF46E /* Helpers */,
@@ -318,6 +344,7 @@
 			files = (
 				3DF007BC2C086BD200ECE37C /* README.md in Resources */,
 				3D7399A92C047F2200B647C0 /* Preview Assets.xcassets in Resources */,
+				3D0ABE992C217C8C0074F6C9 /* Localizable.xcstrings in Resources */,
 				3D7399A62C047F2200B647C0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -351,16 +378,21 @@
 				3DF008452C10A76400ECE37C /* ExerciseListView.swift in Sources */,
 				3D1345922C18E3AA001EF46E /* TrainingNotificationService.swift in Sources */,
 				3DF007CB2C0C56A100ECE37C /* CustomExerciseView.swift in Sources */,
+				3D0ABEA22C22DBE00074F6C9 /* StartCustomTrainingView.swift in Sources */,
+				3D0ABE972C1DA6330074F6C9 /* TrainingNotificationObserver.swift in Sources */,
 				3D13458E2C18A4BD001EF46E /* ShareSheet.swift in Sources */,
 				3DF008472C11B13800ECE37C /* TrainingType.swift in Sources */,
 				3DF007C02C0B2A4F00ECE37C /* TrainingsView.swift in Sources */,
+				3D0ABE9D2C2219560074F6C9 /* StartGymTrainingView.swift in Sources */,
 				3DF007C52C0B2D5400ECE37C /* TrainingView.swift in Sources */,
 				3D7399A22C047F2000B647C0 /* ContentView.swift in Sources */,
 				3D7399A42C047F2000B647C0 /* Training.swift in Sources */,
+				3D0ABE932C1C33740074F6C9 /* StartTrainingView.swift in Sources */,
 				3D1345902C18A7B3001EF46E /* TrainingsViewModel.swift in Sources */,
 				3DF007C92C0C553C00ECE37C /* GymExerciseView.swift in Sources */,
 				3DF0084C2C11B59D00ECE37C /* KarateExerciseView.swift in Sources */,
 				3D7399A02C047F2000B647C0 /* FPlannerApp.swift in Sources */,
+				3D0ABEA02C22DBD40074F6C9 /* StartKarateTrainingView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

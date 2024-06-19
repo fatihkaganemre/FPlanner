@@ -10,8 +10,11 @@ It allows you to:
 - SwiftData
 
 # What is next: 
-- Routing
-- Add Tests //  Try out swift testing framework
+- Notification
+- Start training view
+- Tests //  Try out swift testing framework
+- Widgets
+- Localisation
 
 
 Notification
@@ -34,6 +37,9 @@ Extra Ideas
 - Create a graph of gym exercises
 - Allow to update exercises 
 - Create a sample data with PreviewModifier in Swift 6.0
+
+Widgets 
+- Use widgets to show upcoming trainings
 
 
 Swift Data

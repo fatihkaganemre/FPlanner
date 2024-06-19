@@ -22,11 +22,14 @@ struct FPlannerApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    @StateObject var notificationObserver = TrainingNotificationObserver()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
         }
         .modelContainer(sharedModelContainer)
+        .environmentObject(notificationObserver)
     }
 }
