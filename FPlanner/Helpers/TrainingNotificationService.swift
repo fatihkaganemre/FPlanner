@@ -18,6 +18,7 @@ enum NotificationAction: String {
 
 protocol TrainingNotificationServiceProtocol {
     func createNotification(forTraining training: Training) async throws
+    func removeNotifications(withIdentifiers ids: [String])
 }
 
 class TrainingNotificationService: NSObject, TrainingNotificationServiceProtocol {
@@ -35,12 +36,16 @@ class TrainingNotificationService: NSObject, TrainingNotificationServiceProtocol
         let content = makeNotificationContent(forTraining: training)
         let trigger = makeTrigger(forTraining: training)
         setNotificationCategories(forTraining: training)
-        try await registerNotification(content: content, trigger: trigger)
+        try await registerNotification(id: training.name, content: content, trigger: trigger)
+    }
+    
+    func removeNotifications(withIdentifiers ids: [String]) {
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: ids)
     }
     
     private func makeNotificationContent(forTraining training: Training) -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.title = training.name ?? "Training"
+        content.title = training.name
         content.body = "Scheduled at: \(training.scheduledAt.formatted(date: .omitted, time: .shortened))"
         content.sound = .default
         content.targetContentIdentifier = training.name
@@ -51,7 +56,7 @@ class TrainingNotificationService: NSObject, TrainingNotificationServiceProtocol
     
     private func makeTrigger(forTraining training: Training) -> UNCalendarNotificationTrigger {
         let dateComponents = calendar.dateComponents(
-            [.year, .month, .day, .hour, .minute],
+            [.weekday, .hour, .minute, .second],
             from: training.scheduledAt
         )
         return UNCalendarNotificationTrigger(
@@ -61,12 +66,12 @@ class TrainingNotificationService: NSObject, TrainingNotificationServiceProtocol
     }
     
     private func registerNotification(
+        id: String,
         content: UNMutableNotificationContent,
         trigger: UNCalendarNotificationTrigger
     ) async throws {
-        let uuidString = UUID().uuidString
         let request = UNNotificationRequest(
-            identifier: uuidString,
+            identifier: id,
             content: content,
             trigger: trigger
         )

@@ -82,6 +82,6 @@ struct TrainingView: View {
 
 #Preview {
     NavigationView {
-        TrainingView(viewModel: .init(training: .init(type: .custom)))
+        TrainingView(viewModel: .init(training: .init(name: "Example custom training", type: .custom)))
     }
 }

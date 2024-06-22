@@ -13,7 +13,7 @@ struct TrainingCellView: View {
     var body: some View {
         NavigationLink(value: training) {
             VStack(alignment: .leading) {
-                Text(training.name ?? "").font(.title)
+                Text(training.name).font(.title)
                 Text("Scheduled at: \(training.scheduledAt.formatted(date: .abbreviated, time: .shortened))")
             }
         }
@@ -21,5 +21,5 @@ struct TrainingCellView: View {
 }
 
 #Preview {
-    TrainingCellView(training: .init(type: .karate))
+    TrainingCellView(training: .init(name: "Karate training", type: .karate))
 }

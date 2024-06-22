@@ -13,28 +13,25 @@ struct StartTrainingView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(training.name ?? "Training").font(.largeTitle).padding()
+            Text(training.name).font(.largeTitle).padding()
             switch training.type {
-                case .gym:
-                    StartGymTrainingView(exercises: training.gymExercises)
-                case .karate:
-                    StartKarateTrainingView()
-                case .custom:
-                    StartCustomTrainingView()
+                case .gym: StartGymTrainingView(exercises: training.gymExercises)
+                case .karate: StartKarateTrainingView(exercises: training.karateExercises)
+                case .custom: StartCustomTrainingView(exercises: training.customExercises)
             }
             Spacer()
         }
     }
 }
 
-
 #Preview {
     StartTrainingView(
         training: Training(
+            name: "Example training",
             gymExercises: mockGymExercises,
             customExercises: mockCustomExercises,
             karateExercises: mockKarateExercises,
-            type: .gym
+            type: .custom
         )
     )
 }

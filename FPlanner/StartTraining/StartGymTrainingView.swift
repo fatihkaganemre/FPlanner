@@ -48,6 +48,10 @@ struct StartGymTrainingView: View {
         .background(Color("darkGreen"))
         .foregroundColor(.white)
         .clipShape(Circle())
+        .overlay {
+            Circle().stroke(.yellow, lineWidth: 4)
+        }
+        .shadow(radius: 10)
     }
     
     func nextExercise() {

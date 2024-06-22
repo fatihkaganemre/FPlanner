@@ -13,11 +13,18 @@ class TrainingsViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published private var trainings: [Training] = []
     @Published var isShowingShareSheet = false
+    private let notificationService: TrainingNotificationServiceProtocol
     var itemsToShare: [Any] = []
     var searchResults: [Training] {
         guard !searchText.isEmpty else { return trainings }
         let searchResults = try? trainings.filter(Training.predicate(name: searchText))
         return searchResults ?? []
+    }
+    
+    init(
+        notificationService: TrainingNotificationServiceProtocol = TrainingNotificationService()
+    ) {
+        self.notificationService = notificationService
     }
 
     func updateTrainings(_ newTrainings: [Training]) {
@@ -28,6 +35,7 @@ class TrainingsViewModel: ObservableObject {
         for index in offsets {
             let filteredTrainings = trainings.filter { $0.type == type }
             let training  = filteredTrainings[index]
+            notificationService.removeNotifications(withIdentifiers: [training.name])
             context.delete(training)
         }
     }
@@ -38,7 +46,7 @@ class TrainingsViewModel: ObservableObject {
         // Prepare items to share
         let trainingDetails = """
         Check out this training:
-        Name: \(training.name ?? "No Name")
+        Name: \(training.name)
         Type: \(training.type.title)
         """
         

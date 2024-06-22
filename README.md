@@ -1,9 +1,14 @@
 # FPlanner
-It is a sample app for trying SwiftUI and SwiftData
+It is a sample app for trying
+- SwiftUI
+- SwiftData
+- Local Notifications
+
 It allows you to:
 - Create training (gym , karate, custom)
 - Display list of trainings
 - Edit/Remove trainings
+- Start a training
 
 # Tech stack
 - SwiftUI
@@ -13,6 +18,7 @@ It allows you to:
 - Notification
 - Start training view
 - Tests //  Try out swift testing framework
+    - Check snapshot tests from Burak Gunduz: https://burakgunduz.dev/snapshot-testing-in-swiftui
 - Widgets
 - Localisation
 

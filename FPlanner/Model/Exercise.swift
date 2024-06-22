@@ -48,8 +48,8 @@ struct CustomExercise: Codable, Identifiable, Hashable {
 
 let mockKarateExercises: [KarateExercise] = [
     KarateExercise(name: "Exercise1", description: "Desc1", durationInMin: "1"),
-    KarateExercise(name: "Exercise1", description: "Desc1", durationInMin: "1"),
-    KarateExercise(name: "Exercise1", description: "Desc1", durationInMin: "1")
+    KarateExercise(name: "Exercise2", description: "Desc2", durationInMin: "1"),
+    KarateExercise(name: "Exercise3", description: "Desc3", durationInMin: "1")
 ]
 
 struct KarateExercise: Codable, Identifiable, Hashable {

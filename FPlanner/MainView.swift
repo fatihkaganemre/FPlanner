@@ -27,7 +27,7 @@ struct MainView: View {
             .listSectionSpacing(.compact)
             .navigationTitle("Create a training")
             .navigationDestination(for: TrainingType.self) { type in
-                TrainingView(viewModel: .init(training: .init(type: type)))
+                TrainingView(viewModel: .init(training: .init(name: "", type: type)))
             }
         }
     }

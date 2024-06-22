@@ -37,7 +37,7 @@ class TrainingViewModel: ObservableObject {
     }
     
     var isCreateTraining: Bool {
-        training.name == nil
+        training.name.isEmpty
     }
     
     init(
@@ -46,7 +46,7 @@ class TrainingViewModel: ObservableObject {
     ) {
         self.training = training
         self.notificationService = notificationService
-        self.trainingName = training.name ?? ""
+        self.trainingName = training.name
         self.customExercises = training.customExercises
         self.gymExercises = training.gymExercises
         self.karateExercises = training.karateExercises
@@ -80,6 +80,7 @@ class TrainingViewModel: ObservableObject {
         training.repeats = isTrainingRepeats
         
         if training.scheduledAt > Date.now {
+            notificationService.removeNotifications(withIdentifiers: [training.name])
             scheduleNotification(for: training)
         }
         
