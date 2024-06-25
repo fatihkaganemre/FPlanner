@@ -31,7 +31,7 @@ struct StartTrainingView: View {
             gymExercises: mockGymExercises,
             customExercises: mockCustomExercises,
             karateExercises: mockKarateExercises,
-            type: .custom
+            type: .karate
         )
     )
 }

@@ -6,27 +6,28 @@
 //
 
 import SwiftUI
+import Combine
 
 struct StartKarateTrainingView: View {
     var exercises: [KarateExercise]
     @State private var index: Int = 0
     @State private var buttonState: ButtonState = .Start
     @Environment(\.dismiss) private var dismiss
-    @State private var count = 0
     
     @State private var timeRemaining: Int = 0
     @State private var trimTo = 0.0
-    private let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
+    @State private var timerSubscription: Cancellable?
+    @State private var timer = Timer.publish(every: 1, on: .main, in: .common)
 
     init(exercises: [KarateExercise]) {
         self.exercises = exercises
-        timeRemaining = (Int(exercises[0].durationInMin) ?? 0) * 60
     }
     
     enum ButtonState: String {
         case Start
         case Pause
-        case CountDown
+        case Play
         case Finish
     }
     
@@ -41,74 +42,92 @@ struct StartKarateTrainingView: View {
             .foregroundColor(.white)
             .cornerRadius(12)
             .shadow(radius: 12)
-            .onReceive(timer) { input in
-                withAnimation {
-                    if timeRemaining > 0 {
-                        timeRemaining -= 1
-                        trimTo = 1 - (Double(timeRemaining) / 60)
-                    }
-                }
+            .onAppear {
+                timeRemaining = (Int(exercises[0].durationInMin) ?? 0) * 60
             }
         }
-        
+
         Spacer()
         
+        
         HStack {
-            Button("", systemImage: "pause.fill") {
-                
+            VStack {
+                Button(buttonState.rawValue) {
+                    handleMainButtonAction()
+                }
+                .padding(.all, 40)
+                .font(.largeTitle).fontWeight(.bold)
+                .background(Color("darkGreen"))
+                .foregroundColor(.white)
+                .clipShape(Circle())
+                .overlay {
+                    Circle()
+                        .trim(from: 0, to: trimTo)
+                        .stroke(.yellow, lineWidth: 5)
+                }
+                .shadow(radius: 10)
             }
-            .padding()
-            .background(Color.yellow)
-            .cornerRadius(12)
-            .shadow(radius: 10)
             
-            
-            Button(buttonState.rawValue) {
-                nextExercise()
+            if index < exercises.count - 1 {
+                Button(action: {
+                    handleSkipButtonAction()
+                }, label: {
+                    Text("Skip").fontWeight(.bold).padding()
+                })
+                .background(Color.yellow)
+                .cornerRadius(12)
+                .shadow(radius: 10)
             }
-            .padding(.all, 40)
-            .font(.largeTitle).fontWeight(.bold)
-            .background(Color("darkGreen"))
-            .foregroundColor(.white)
-            .clipShape(Circle())
-            .overlay {
-                Circle()
-                    .trim(from: 0, to: trimTo)
-                    .stroke(.yellow, lineWidth: 5)
-            }
-            .shadow(radius: 10)
-            
-            Button(action: {
-                
-            }, label: {
-                Text("Skip").fontWeight(.bold).padding()
-            })
-            .background(Color.yellow)
-            .cornerRadius(12)
-            .shadow(radius: 10)
         }
     }
     
-    func handleButtonAction() {
+    private func handleMainButtonAction() {
         switch buttonState {
-            case .Start: break
-                
-            case .Pause: break
-            case .CountDown: break
-            case .Finish: 
+            case .Start:
+                startTimer()
+                buttonState = .Pause
+            case .Pause:
+                cancelTimer()
+                buttonState = .Play
+            case .Play:
+                startTimer()
+                buttonState = .Pause
+            case .Finish:
                 dismiss()
         }
     }
     
-    func nextExercise() {
+    private func handleSkipButtonAction() {
+        cancelTimer()
+        nextExercise()
+    }
+    
+    private func nextExercise() {
         if index <= exercises.count - 1 {
             index += 1
             timeRemaining = (Int(exercises[index].durationInMin) ?? 0) * 60
+            cancelTimer()
+            buttonState = .Start
         }
-        
-        if index == exercises.count - 1 {
-            buttonState = .Finish
-        }
+    }
+    
+    func startTimer() {
+        timerSubscription = timer
+            .autoconnect()
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { _ in
+                if timeRemaining > 0 {
+                    timeRemaining -= 1
+                    trimTo = 1 - (Double(timeRemaining) / 60)
+                } else {
+                    nextExercise()
+                }
+            })
+    }
+    
+    func cancelTimer() {
+        timerSubscription?.cancel()
+        timerSubscription = nil
     }
 }
 

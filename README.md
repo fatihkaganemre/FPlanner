@@ -13,12 +13,12 @@ It allows you to:
 # Tech stack
 - SwiftUI
 - SwiftData
+- swift-snapshot-testing - from PointFree 
 
 # What is next: 
 - Notification
 - Start training view
 - Tests //  Try out swift testing framework
-    - Check snapshot tests from Burak Gunduz: https://burakgunduz.dev/snapshot-testing-in-swiftui
 - Widgets
 - Localisation
 

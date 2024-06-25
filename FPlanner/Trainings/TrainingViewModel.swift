@@ -47,6 +47,7 @@ class TrainingViewModel: ObservableObject {
         self.training = training
         self.notificationService = notificationService
         self.trainingName = training.name
+        self.isTrainingRepeats = training.repeats
         self.customExercises = training.customExercises
         self.gymExercises = training.gymExercises
         self.karateExercises = training.karateExercises
