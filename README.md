@@ -3,11 +3,12 @@ It is a sample app for trying
 - SwiftUI
 - SwiftData
 - Local Notifications
+- Snapshot Testing
 
 It allows you to:
 - Create training (gym , karate, custom)
 - Display list of trainings
-- Edit/Remove trainings
+- Add/Edit/Remove trainings
 - Start a training
 
 # Tech stack
@@ -21,7 +22,6 @@ It allows you to:
 - Tests //  Try out swift testing framework
 - Widgets
 - Localisation
-
 
 Notification
 - Notifying user for the training 

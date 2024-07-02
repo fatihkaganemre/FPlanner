@@ -19,15 +19,17 @@ struct CustomExerciseView: View {
                 .font(.subheadline)
             
             Button("Add Exercise") {
-                exerciseList.append(exercise)
-                exercise = .init()
+                withAnimation {
+                    exerciseList.append(exercise)
+                    exercise = .init()
+                }
             }
             .buttonStyle(.borderedProminent)
             .disabled(
                 exercise.name.isEmpty
                 || exercise.description.isEmpty
             )
-            // TODO: - Check validation in iOS
+            .padding(.top, 5)
         }
     }
 }

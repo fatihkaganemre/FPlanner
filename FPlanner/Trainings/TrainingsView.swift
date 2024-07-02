@@ -37,8 +37,15 @@ struct TrainingsView: View {
             .searchable(text: $viewModel.searchText, prompt: "Search by name")
             .onAppear { viewModel.updateTrainings(trainings) }
             .onChange(of: trainings) { viewModel.updateTrainings(trainings) }
-            .sheet(isPresented: $viewModel.isShowingShareSheet) {
-                ShareSheet(items: viewModel.itemsToShare)
+            .sheet(isPresented: $viewModel.isShowingSheet) {
+                switch viewModel.sheetType {
+                    case let .share(items):
+                        ShareSheet(items: items)
+                    case let .start(training):
+                        StartTrainingView(training: training)
+                    case .none:
+                        EmptyView()
+                }
             }
         }
     }
@@ -59,6 +66,10 @@ struct TrainingsView: View {
                             viewModel.shareTraining(training)
                         }
                         .tint(.blue)
+                        Button("Play", systemImage: "play.fill") {
+                            viewModel.startTraining(training)
+                        }
+                        .tint(.green)
                     }
             }
             .onDelete { offsets in

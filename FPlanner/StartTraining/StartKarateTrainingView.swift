@@ -42,6 +42,17 @@ struct StartKarateTrainingView: View {
             .foregroundColor(.white)
             .cornerRadius(12)
             .shadow(radius: 12)
+            .onReceive(timer) { _ in
+                withAnimation {
+                    if timeRemaining > 0 {
+                        timeRemaining -= 1
+                        let totalTime = (Double(exercises[index].durationInMin) ?? 0) * 60
+                        trimTo = 1 - (Double(timeRemaining) / totalTime)
+                    } else {
+                        nextExercise()
+                    }
+                }
+            }
             .onAppear {
                 timeRemaining = (Int(exercises[0].durationInMin) ?? 0) * 60
             }
@@ -49,36 +60,58 @@ struct StartKarateTrainingView: View {
 
         Spacer()
         
-        
         HStack {
-            VStack {
-                Button(buttonState.rawValue) {
-                    handleMainButtonAction()
-                }
-                .padding(.all, 40)
-                .font(.largeTitle).fontWeight(.bold)
-                .background(Color("darkGreen"))
-                .foregroundColor(.white)
-                .clipShape(Circle())
-                .overlay {
-                    Circle()
-                        .trim(from: 0, to: trimTo)
-                        .stroke(.yellow, lineWidth: 5)
-                }
-                .shadow(radius: 10)
+            if index > 0 {
+                BackButton()
             }
-            
+            StartButton()
             if index < exercises.count - 1 {
-                Button(action: {
-                    handleSkipButtonAction()
-                }, label: {
-                    Text("Skip").fontWeight(.bold).padding()
-                })
-                .background(Color.yellow)
-                .cornerRadius(12)
-                .shadow(radius: 10)
+                SkipButton()
             }
         }
+    }
+    
+    @ViewBuilder
+    private func StartButton() -> some View {
+        Button(buttonState.rawValue) {
+            handleMainButtonAction()
+        }
+        .padding(.all, 40)
+        .font(.title).fontWeight(.bold)
+        .background(Color("darkGreen"))
+        .foregroundColor(.white)
+        .clipShape(Circle())
+        .overlay {
+            Circle()
+                .trim(from: 0, to: trimTo)
+                .stroke(.yellow, lineWidth: 5)
+        }
+        .shadow(radius: 10)
+    }
+    
+    @ViewBuilder
+    private func SkipButton() -> some View {
+        Button(action: {
+            handleSkipButtonAction()
+        }, label: {
+            Text("Skip").fontWeight(.bold).padding()
+        })
+        .background(Color.yellow)
+        .cornerRadius(12)
+        .shadow(radius: 10)
+    }
+    
+    @ViewBuilder
+    private func BackButton() -> some View {
+        Button(action: {
+            handleBackButtonAction()
+        }, label: {
+            Text("Back").fontWeight(.bold).padding()
+        })
+        .foregroundColor(.white)
+        .background(Color.black)
+        .cornerRadius(12)
+        .shadow(radius: 10)
     }
     
     private func handleMainButtonAction() {
@@ -98,34 +131,35 @@ struct StartKarateTrainingView: View {
     }
     
     private func handleSkipButtonAction() {
-        cancelTimer()
-        nextExercise()
-    }
-    
-    private func nextExercise() {
-        if index <= exercises.count - 1 {
-            index += 1
-            timeRemaining = (Int(exercises[index].durationInMin) ?? 0) * 60
+        withAnimation {
             cancelTimer()
-            buttonState = .Start
+            nextExercise()
         }
     }
     
-    func startTimer() {
-        timerSubscription = timer
-            .autoconnect()
-            .receive(on: DispatchQueue.main)
-            .sink(receiveValue: { _ in
-                if timeRemaining > 0 {
-                    timeRemaining -= 1
-                    trimTo = 1 - (Double(timeRemaining) / 60)
-                } else {
-                    nextExercise()
-                }
-            })
+    private func handleBackButtonAction() {
+        withAnimation {
+            cancelTimer()
+            index -= 1
+        }
     }
     
-    func cancelTimer() {
+    private func nextExercise() {
+        guard index < exercises.count - 1 else { return }
+        index += 1
+        timeRemaining = (Int(exercises[index].durationInMin) ?? 0) * 60
+        let totalTime = (Double(exercises[index].durationInMin) ?? 0) * 60
+        trimTo = 1 - (Double(timeRemaining) / totalTime)
+        cancelTimer()
+        buttonState = .Start
+    }
+    
+    private func startTimer() {
+        timer = Timer.publish(every: 1, on: .main, in: .common)
+        timerSubscription = timer.connect()
+    }
+    
+    private func cancelTimer() {
         timerSubscription?.cancel()
         timerSubscription = nil
     }

@@ -12,9 +12,15 @@ import SwiftData
 class TrainingsViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published private var trainings: [Training] = []
-    @Published var isShowingShareSheet = false
+    @Published var isShowingSheet = false
+    
+    enum SheetType {
+        case share(items: [Any])
+        case start(training: Training)
+    }
+    
     private let notificationService: TrainingNotificationServiceProtocol
-    var itemsToShare: [Any] = []
+    var sheetType: SheetType?
     var searchResults: [Training] {
         guard !searchText.isEmpty else { return trainings }
         let searchResults = try? trainings.filter(Training.predicate(name: searchText))
@@ -50,7 +56,12 @@ class TrainingsViewModel: ObservableObject {
         Type: \(training.type.title)
         """
         
-        itemsToShare = [trainingDetails]
-        isShowingShareSheet = true
+        sheetType = .share(items: [trainingDetails])
+        isShowingSheet = true
+    }
+    
+    func startTraining(_ training: Training) {
+        sheetType = .start(training: training)
+        isShowingSheet = true
     }
 }

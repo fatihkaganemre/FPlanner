@@ -14,9 +14,7 @@ struct StartCustomTrainingView: View {
     @Environment(\.dismiss) private var dismiss
     
     enum ButtonState: String {
-        case Start
-        case Next
-        case Finish
+        case Next, Finish
     }
     
     var body: some View {
@@ -33,12 +31,23 @@ struct StartCustomTrainingView: View {
         }
         
         Spacer()
-        
+        HStack {
+            if index > 0 {
+                BackButton()
+            }
+            StartButton()
+        }
+    }
+    
+    @ViewBuilder
+    private func StartButton() -> some View {
         Button(buttonState.rawValue) {
-            nextExercise()
+            withAnimation {
+                nextExercise()
+            }
         }
         .padding(.all, 40)
-        .font(.largeTitle).fontWeight(.bold)
+        .font(.title).fontWeight(.bold)
         .background(Color("darkGreen"))
         .foregroundColor(.white)
         .clipShape(Circle())
@@ -48,11 +57,25 @@ struct StartCustomTrainingView: View {
         .shadow(radius: 10)
     }
     
-    func nextExercise() {
+    @ViewBuilder
+    private func BackButton() -> some View {
+        Button(action: {
+            withAnimation {
+                handleBackButtonAction()
+            }
+        }, label: {
+            Text("Back").fontWeight(.bold).padding()
+        })
+        .foregroundColor(.white)
+        .background(Color.black)
+        .cornerRadius(12)
+        .shadow(radius: 10)
+    }
+    
+    private func nextExercise() {
         switch buttonState {
-            case .Start: break
             case .Next:
-                if index <= exercises.count - 1 {
+                if index < exercises.count - 1 {
                     index += 1
                 }
                 
@@ -60,6 +83,16 @@ struct StartCustomTrainingView: View {
                     buttonState = .Finish
                 }
             case .Finish: dismiss()
+        }
+    }
+    
+    private func handleBackButtonAction() {
+        if index > 0 {
+            index -= 1
+        }
+        
+        if buttonState == .Finish {
+            buttonState = .Next
         }
     }
 }

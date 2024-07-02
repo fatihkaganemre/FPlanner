@@ -16,10 +16,16 @@
     "%@ trainings" : {
 
     },
+    "%lld" : {
+
+    },
     "Add an exercise" : {
 
     },
     "Add Exercise" : {
+
+    },
+    "Back" : {
 
     },
     "Create" : {
@@ -61,10 +67,13 @@
     "Name" : {
 
     },
-    "Number of reps" : {
+    "Number of Reps" : {
 
     },
-    "Number of sets" : {
+    "Number of Sets" : {
+
+    },
+    "Play" : {
 
     },
     "Repeat" : {
