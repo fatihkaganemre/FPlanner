@@ -1,5 +1,6 @@
 ## User settings
 xcuserdata/
+.xcodeproj/project.xcworkspace/xcuserdata
 
 ## App packaging
 *.ipa
