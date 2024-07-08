@@ -15,8 +15,12 @@ struct StartKarateTrainingView: View {
         if viewModel.index < viewModel.exercises.count {
             let exercise = viewModel.exercises[viewModel.index]
             VStack {
-                Text(exercise.name).font(.title2).fontWeight(.bold)
-                Text(exercise.description).font(.title2)
+                Text(exercise.name)
+                    .font(.title2)
+                    .fontWeight(.bold)
+                Text(exercise.description)
+                    .font(.title2)
+                    .padding(.top, 5)
             }
             .padding(40)
             .background(Color("darkGreen"), alignment: .center)

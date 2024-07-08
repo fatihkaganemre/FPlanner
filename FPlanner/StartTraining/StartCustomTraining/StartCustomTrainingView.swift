@@ -17,6 +17,7 @@ struct StartCustomTrainingView: View {
             VStack {
                 Text(exercise.name).font(.title2).fontWeight(.bold)
                 Text(exercise.description).font(.title2)
+                    .padding(.top, 5)
             }
             .padding(40)
             .background(Color("darkGreen"), alignment: .center)
