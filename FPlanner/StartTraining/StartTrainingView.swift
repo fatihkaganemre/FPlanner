@@ -13,13 +13,22 @@ struct StartTrainingView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(training.name).font(.largeTitle).padding()
-            switch training.type {
-                case .gym: StartGymTrainingView(exercises: training.gymExercises)
-                case .karate: StartKarateTrainingView(exercises: training.karateExercises)
-                case .custom: StartCustomTrainingView(exercises: training.customExercises)
-            }
+            Text(training.name)
+                .font(.largeTitle)
+                .padding()
+            TrainingView()
+                .padding()
             Spacer()
+        }
+    }
+    
+    @ViewBuilder
+    @MainActor
+    private func TrainingView() -> some View {
+        switch training.type {
+            case .gym: StartGymTrainingView(exercises: training.gymExercises)
+            case .karate: StartKarateTrainingView(viewModel: .init(exercises: training.karateExercises))
+            case .custom: StartCustomTrainingView(exercises: training.customExercises)
         }
     }
 }

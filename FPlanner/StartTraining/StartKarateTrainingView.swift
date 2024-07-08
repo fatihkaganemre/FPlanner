@@ -6,66 +6,41 @@
 //
 
 import SwiftUI
-import Combine
 
 struct StartKarateTrainingView: View {
-    var exercises: [KarateExercise]
-    @State private var index: Int = 0
-    @State private var buttonState: ButtonState = .Start
     @Environment(\.dismiss) private var dismiss
-    
-    @State private var timeRemaining: Int = 0
-    @State private var trimTo = 0.0
-    
-    @State private var timerSubscription: Cancellable?
-    @State private var timer = Timer.publish(every: 1, on: .main, in: .common)
-
-    init(exercises: [KarateExercise]) {
-        self.exercises = exercises
-    }
-    
-    enum ButtonState: String {
-        case Start
-        case Pause
-        case Play
-        case Finish
-    }
+    @StateObject var viewModel: StartKarateTrainingViewModel
     
     var body: some View {
-        if index < exercises.count {
+        if viewModel.index < viewModel.exercises.count {
+            let exercise = viewModel.exercises[viewModel.index]
             VStack {
-                Text(exercises[index].name).font(.title2).fontWeight(.bold)
-                Text(exercises[index].description).font(.title2)
+                Text(exercise.name).font(.title2).fontWeight(.bold)
+                Text(exercise.description).font(.title2)
             }
             .padding(40)
             .background(Color("darkGreen"), alignment: .center)
             .foregroundColor(.white)
             .cornerRadius(12)
             .shadow(radius: 12)
-            .onReceive(timer) { _ in
+            .onReceive(viewModel.timer) { _ in
                 withAnimation {
-                    if timeRemaining > 0 {
-                        timeRemaining -= 1
-                        let totalTime = (Double(exercises[index].durationInMin) ?? 0) * 60
-                        trimTo = 1 - (Double(timeRemaining) / totalTime)
-                    } else {
-                        nextExercise()
-                    }
+                    viewModel.timerUpdate()
                 }
             }
             .onAppear {
-                timeRemaining = (Int(exercises[0].durationInMin) ?? 0) * 60
+                viewModel.setRemainingTimeOnAppear()
             }
         }
 
         Spacer()
         
         HStack {
-            if index > 0 {
+            if viewModel.index > 0 {
                 BackButton()
             }
             StartButton()
-            if index < exercises.count - 1 {
+            if viewModel.index < viewModel.exercises.count - 1 {
                 SkipButton()
             }
         }
@@ -73,8 +48,12 @@ struct StartKarateTrainingView: View {
     
     @ViewBuilder
     private func StartButton() -> some View {
-        Button(buttonState.rawValue) {
-            handleMainButtonAction()
+        Button(viewModel.buttonState.rawValue) {
+            if viewModel.buttonState == .Finish {
+                dismiss()
+            } else {
+                viewModel.handleMainButtonAction()
+            }
         }
         .padding(.all, 40)
         .font(.title).fontWeight(.bold)
@@ -83,7 +62,7 @@ struct StartKarateTrainingView: View {
         .clipShape(Circle())
         .overlay {
             Circle()
-                .trim(from: 0, to: trimTo)
+                .trim(from: 0, to: viewModel.trimTo)
                 .stroke(.yellow, lineWidth: 5)
         }
         .shadow(radius: 10)
@@ -92,7 +71,9 @@ struct StartKarateTrainingView: View {
     @ViewBuilder
     private func SkipButton() -> some View {
         Button(action: {
-            handleSkipButtonAction()
+            withAnimation {
+                viewModel.handleSkipButtonAction()
+            }
         }, label: {
             Text("Skip").fontWeight(.bold).padding()
         })
@@ -104,7 +85,9 @@ struct StartKarateTrainingView: View {
     @ViewBuilder
     private func BackButton() -> some View {
         Button(action: {
-            handleBackButtonAction()
+            withAnimation {
+                viewModel.handleBackButtonAction()
+            }
         }, label: {
             Text("Back").fontWeight(.bold).padding()
         })
@@ -113,58 +96,8 @@ struct StartKarateTrainingView: View {
         .cornerRadius(12)
         .shadow(radius: 10)
     }
-    
-    private func handleMainButtonAction() {
-        switch buttonState {
-            case .Start:
-                startTimer()
-                buttonState = .Pause
-            case .Pause:
-                cancelTimer()
-                buttonState = .Play
-            case .Play:
-                startTimer()
-                buttonState = .Pause
-            case .Finish:
-                dismiss()
-        }
-    }
-    
-    private func handleSkipButtonAction() {
-        withAnimation {
-            cancelTimer()
-            nextExercise()
-        }
-    }
-    
-    private func handleBackButtonAction() {
-        withAnimation {
-            cancelTimer()
-            index -= 1
-        }
-    }
-    
-    private func nextExercise() {
-        guard index < exercises.count - 1 else { return }
-        index += 1
-        timeRemaining = (Int(exercises[index].durationInMin) ?? 0) * 60
-        let totalTime = (Double(exercises[index].durationInMin) ?? 0) * 60
-        trimTo = 1 - (Double(timeRemaining) / totalTime)
-        cancelTimer()
-        buttonState = .Start
-    }
-    
-    private func startTimer() {
-        timer = Timer.publish(every: 1, on: .main, in: .common)
-        timerSubscription = timer.connect()
-    }
-    
-    private func cancelTimer() {
-        timerSubscription?.cancel()
-        timerSubscription = nil
-    }
 }
 
 #Preview {
-    StartKarateTrainingView(exercises: mockKarateExercises)
+    StartKarateTrainingView(viewModel: .init(exercises: mockKarateExercises))
 }

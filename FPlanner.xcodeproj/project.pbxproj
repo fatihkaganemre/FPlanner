@@ -29,6 +29,7 @@
 		3D7399B32C047F2200B647C0 /* FPlannerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399B22C047F2200B647C0 /* FPlannerTests.swift */; };
 		3D7399BD2C047F2200B647C0 /* FPlannerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399BC2C047F2200B647C0 /* FPlannerUITests.swift */; };
 		3D7399BF2C047F2200B647C0 /* FPlannerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D7399BE2C047F2200B647C0 /* FPlannerUITestsLaunchTests.swift */; };
+		3DA24EEF2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA24EEE2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift */; };
 		3DF007B32C074AE700ECE37C /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007B22C074AE700ECE37C /* Exercise.swift */; };
 		3DF007BC2C086BD200ECE37C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3DF007BB2C086BD200ECE37C /* README.md */; };
 		3DF007C02C0B2A4F00ECE37C /* TrainingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */; };
@@ -85,6 +86,7 @@
 		3D7399B82C047F2200B647C0 /* FPlannerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FPlannerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D7399BC2C047F2200B647C0 /* FPlannerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPlannerUITests.swift; sourceTree = "<group>"; };
 		3D7399BE2C047F2200B647C0 /* FPlannerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FPlannerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3DA24EEE2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartKarateTrainingViewModel.swift; sourceTree = "<group>"; };
 		3DF007B22C074AE700ECE37C /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		3DF007BB2C086BD200ECE37C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingsView.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 			children = (
 				3D0ABE922C1C33740074F6C9 /* StartTrainingView.swift */,
 				3D0ABE9C2C2219560074F6C9 /* StartGymTrainingView.swift */,
+				3DA24EEE2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift */,
 				3D0ABE9F2C22DBD30074F6C9 /* StartKarateTrainingView.swift */,
 				3D0ABEA12C22DBE00074F6C9 /* StartCustomTrainingView.swift */,
 			);
@@ -403,6 +406,7 @@
 				3DF007C02C0B2A4F00ECE37C /* TrainingsView.swift in Sources */,
 				3D0ABE9D2C2219560074F6C9 /* StartGymTrainingView.swift in Sources */,
 				3DF007C52C0B2D5400ECE37C /* TrainingView.swift in Sources */,
+				3DA24EEF2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift in Sources */,
 				3D7399A22C047F2000B647C0 /* ContentView.swift in Sources */,
 				3D7399A42C047F2000B647C0 /* Training.swift in Sources */,
 				3D0ABE932C1C33740074F6C9 /* StartTrainingView.swift in Sources */,

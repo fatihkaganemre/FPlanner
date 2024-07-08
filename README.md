@@ -11,6 +11,13 @@ It allows you to:
 - Add/Edit/Remove trainings
 - Start a training
 
+
+# TODO
+- Clean the code
+- Update karate training creation
+- When training repeats it should show the future date as Scheduled
+- Add alarm for finishing exercise in Start training view
+
 # Tech stack
 - SwiftUI
 - SwiftData
