@@ -8,20 +8,15 @@
 import SwiftUI
 
 struct StartCustomTrainingView: View {
-    var exercises: [CustomExercise]
-    @State private var index: Int = 0
-    @State private var buttonState: ButtonState = .Next
+    @StateObject var viewModel: StartCustomTrainingViewModel
     @Environment(\.dismiss) private var dismiss
     
-    enum ButtonState: String {
-        case Next, Finish
-    }
-    
     var body: some View {
-        if index < exercises.count {
+        if viewModel.index < viewModel.exercises.count {
+            let exercise = viewModel.exercises[viewModel.index]
             VStack {
-                Text(exercises[index].name).font(.title2).fontWeight(.bold)
-                Text(exercises[index].description).font(.title2)
+                Text(exercise.name).font(.title2).fontWeight(.bold)
+                Text(exercise.description).font(.title2)
             }
             .padding(40)
             .background(Color("darkGreen"), alignment: .center)
@@ -32,7 +27,7 @@ struct StartCustomTrainingView: View {
         
         Spacer()
         HStack {
-            if index > 0 {
+            if viewModel.index > 0 {
                 BackButton()
             }
             StartButton()
@@ -41,7 +36,7 @@ struct StartCustomTrainingView: View {
     
     @ViewBuilder
     private func StartButton() -> some View {
-        Button(buttonState.rawValue) {
+        Button(viewModel.buttonState.rawValue) {
             withAnimation {
                 nextExercise()
             }
@@ -61,7 +56,7 @@ struct StartCustomTrainingView: View {
     private func BackButton() -> some View {
         Button(action: {
             withAnimation {
-                handleBackButtonAction()
+                viewModel.handleBackButtonAction()
             }
         }, label: {
             Text("Back").fontWeight(.bold).padding()
@@ -73,30 +68,13 @@ struct StartCustomTrainingView: View {
     }
     
     private func nextExercise() {
-        switch buttonState {
-            case .Next:
-                if index < exercises.count - 1 {
-                    index += 1
-                }
-                
-                if index == exercises.count - 1 {
-                    buttonState = .Finish
-                }
+        switch viewModel.buttonState {
+            case .Next: viewModel.nextExercise()
             case .Finish: dismiss()
-        }
-    }
-    
-    private func handleBackButtonAction() {
-        if index > 0 {
-            index -= 1
-        }
-        
-        if buttonState == .Finish {
-            buttonState = .Next
         }
     }
 }
 
 #Preview {
-    StartCustomTrainingView(exercises: mockCustomExercises)
+    StartCustomTrainingView(viewModel: .init(exercises: mockCustomExercises))
 }

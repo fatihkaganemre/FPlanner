@@ -26,9 +26,9 @@ struct StartTrainingView: View {
     @MainActor
     private func TrainingView() -> some View {
         switch training.type {
-            case .gym: StartGymTrainingView(exercises: training.gymExercises)
+            case .gym: StartGymTrainingView(viewModel: .init(exercises: training.gymExercises))
             case .karate: StartKarateTrainingView(viewModel: .init(exercises: training.karateExercises))
-            case .custom: StartCustomTrainingView(exercises: training.customExercises)
+            case .custom: StartCustomTrainingView(viewModel: .init(exercises: training.customExercises))
         }
     }
 }

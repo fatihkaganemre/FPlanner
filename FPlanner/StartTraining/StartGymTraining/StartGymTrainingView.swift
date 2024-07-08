@@ -7,11 +7,8 @@
 
 import SwiftUI
 
-
 struct StartGymTrainingView: View {
-    var exercises: [GymExercise]
-    @State private var index: Int = 0
-    @State private var buttonState: ButtonState = .Next
+    @StateObject var viewModel: StartGymTrainingViewModel
     @Environment(\.dismiss) private var dismiss
     
     enum ButtonState: String {
@@ -19,13 +16,14 @@ struct StartGymTrainingView: View {
     }
     
     var body: some View {
-        if index < exercises.count {
+        if viewModel.index < viewModel.exercises.count {
+            let exercise = viewModel.exercises[viewModel.index]
             VStack {
-                Text(exercises[index].name).font(.title2).fontWeight(.bold)
-                Text("Max weight: \(exercises[index].maxWeight)kg").font(.title2)
+                Text(exercise.name).font(.title2).fontWeight(.bold)
+                Text("Max weight: \(exercise.maxWeight)kg").font(.title2)
                 HStack {
-                    Text("Reps: \(exercises[index].numberOfReps)")
-                    Text("Sets: \(exercises[index].numberOfSets)")
+                    Text("Reps: \(exercise.numberOfReps)")
+                    Text("Sets: \(exercise.numberOfSets)")
                 }
                 .font(.title2)
             }
@@ -38,7 +36,7 @@ struct StartGymTrainingView: View {
         
         Spacer()
         HStack {
-            if index > 0 {
+            if viewModel.index > 0 {
                 BackButton()
             }
             StartButton()
@@ -47,7 +45,7 @@ struct StartGymTrainingView: View {
     
     @ViewBuilder
     private func StartButton() -> some View {
-        Button(buttonState.rawValue) {
+        Button(viewModel.buttonState.rawValue) {
             withAnimation {
                 nextExercise()
             }
@@ -67,7 +65,7 @@ struct StartGymTrainingView: View {
     private func BackButton() -> some View {
         Button(action: {
             withAnimation {
-                handleBackButtonAction()
+                viewModel.handleBackButtonAction()
             }
         }, label: {
             Text("Back").fontWeight(.bold).padding()
@@ -79,36 +77,13 @@ struct StartGymTrainingView: View {
     }
     
     private func nextExercise() {
-        switch buttonState {
-            case .Next:
-                if index < exercises.count - 1 {
-                    index += 1
-                }
-                
-                if index == exercises.count - 1 {
-                    buttonState = .Finish
-                }
+        switch viewModel.buttonState {
+            case .Next: viewModel.nextExercise()
             case .Finish: dismiss()
-        }
-    }
-    
-    private func handleBackButtonAction() {
-        if index > 0 {
-            index -= 1
-        }
-        
-        if buttonState == .Finish {
-            buttonState = .Next
         }
     }
 }
 
 #Preview {
-    StartGymTrainingView(
-        exercises: [
-            GymExercise(name: "Exercise1", numberOfReps: "12", numberOfSets: "3", maxWeight: "120"),
-            GymExercise(name: "Exercise2", numberOfReps: "12", numberOfSets: "3", maxWeight: "100"),
-            GymExercise(name: "Exercise3", numberOfReps: "12", numberOfSets: "3", maxWeight: "90")
-        ]
-    )
+    StartGymTrainingView(viewModel: .init(exercises: mockGymExercises))
 }
