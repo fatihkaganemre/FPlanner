@@ -66,34 +66,44 @@ class StartKarateTrainingViewModel: ObservableObject {
     
     func handleBackButtonAction() {
         cancelTimer()
-        if index > 0 {
-            index -= 1
-        }
+        previousExercise()
     }
     
     // MARK: - Helper functions
     
     func setRemainingTimeOnAppear() {
-        timeRemaining = (Int(exercises[0].durationInMin) ?? 0) * 60
-    }
-    
-    func nextExercise() {
-        guard index < exercises.count - 1 else { return }
-        index += 1
-        timeRemaining = (Int(exercises[index].durationInMin) ?? 0) * 60
-        let totalTime = (Double(exercises[index].durationInMin) ?? 0) * 60
-        trimTo = 1 - (Double(timeRemaining) / totalTime)
-        cancelTimer()
-        buttonState = .Start
+        timeRemaining = exercises[0].durationInSec ?? 0
     }
     
     func timerUpdate() {
         if timeRemaining > 0 {
             timeRemaining -= 1
-            let totalTime = (Double(exercises[index].durationInMin) ?? 0) * 60
+            let totalTime = Double(exercises[index].durationInSec ?? 0)
             trimTo = 1 - (Double(timeRemaining) / totalTime)
         } else {
             nextExercise()
         }
+    }
+    
+    private func nextExercise() {
+        guard index < exercises.count - 1 else {
+            buttonState = .Finish
+            return
+        }
+        index += 1
+        timeRemaining = exercises[index].durationInSec ?? 0
+        let totalTime = Double(exercises[index].durationInSec ?? 0)
+        trimTo = 1 - (Double(timeRemaining) / totalTime)
+        cancelTimer()
+        buttonState = .Start
+    }
+    
+    private func previousExercise() {
+        guard index > 0 else { return }
+        index -= 1
+        timeRemaining = exercises[index].durationInSec ?? 0
+        let totalTime = Double(exercises[index].durationInSec ?? 0)
+        trimTo = 1 - (Double(timeRemaining) / totalTime)
+        buttonState = .Start
     }
 }

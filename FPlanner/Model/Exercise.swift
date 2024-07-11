@@ -47,20 +47,20 @@ struct CustomExercise: Codable, Identifiable, Hashable {
 }
 
 let mockKarateExercises: [KarateExercise] = [
-    KarateExercise(name: "Exercise1", description: "Desc1", durationInMin: "1"),
-    KarateExercise(name: "Exercise2", description: "Desc2", durationInMin: "1"),
-    KarateExercise(name: "Exercise3", description: "Desc3", durationInMin: "1")
+    KarateExercise(name: "Exercise1", description: "Desc1", durationInSec: 10),
+    KarateExercise(name: "Exercise2", description: "Desc2", durationInSec: 10),
+    KarateExercise(name: "Exercise3", description: "Desc3", durationInSec: 10)
 ]
 
 struct KarateExercise: Codable, Identifiable, Hashable {
     var id = UUID()
     var name: String
     var description: String
-    var durationInMin: String
+    var durationInSec: Int?
     
-    init(name: String = "", description: String = "", durationInMin: String = "") {
+    init(name: String = "", description: String = "", durationInSec: Int? = nil) {
         self.name = name
         self.description = description
-        self.durationInMin = durationInMin
+        self.durationInSec = durationInSec
     }
 }

@@ -41,6 +41,10 @@ class TrainingViewModel: ObservableObject {
         training.name.isEmpty
     }
     
+    var isCreateOrSaveButtonDisabled: Bool {
+        isExerciseListEmpty || trainingName.isEmpty
+    }
+    
     init(
         training: Training,
         notificationService: TrainingNotificationServiceProtocol = TrainingNotificationService()
@@ -56,7 +60,7 @@ class TrainingViewModel: ObservableObject {
         self.scheduledAt = training.scheduledAt
     }
     
-    func saveOrDeleteTraining(fromContext modelContext: ModelContext) {
+    func saveOrCreateTraining(fromContext modelContext: ModelContext) {
         isCreateTraining
         ? createTraining(modelContext: modelContext)
         : saveTraining()

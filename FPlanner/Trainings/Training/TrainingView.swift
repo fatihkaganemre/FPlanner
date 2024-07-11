@@ -54,7 +54,10 @@ struct TrainingView: View {
                 }
             }
             
-            SaveOrDeleteButton()
+            SaveOrCreateButton()
+                .disabled(
+                    viewModel.isCreateOrSaveButtonDisabled
+                )
         }
         .background(Color(.systemGray6))
         .navigationTitle(viewModel.navigationTitle)
@@ -71,9 +74,9 @@ struct TrainingView: View {
     }
     
     @ViewBuilder
-    private func SaveOrDeleteButton() -> some View {
+    private func SaveOrCreateButton() -> some View {
         Button {
-            viewModel.saveOrDeleteTraining(fromContext: modelContext)
+            viewModel.saveOrCreateTraining(fromContext: modelContext)
             if !viewModel.isTrainingExist {
                 dismiss()
             }

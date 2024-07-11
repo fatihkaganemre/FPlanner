@@ -29,6 +29,7 @@ It allows you to:
 - Tests //  Try out swift testing framework
 - Widgets
 - Localisation
+- Think about a different font and colour schema 
 
 Notification
 - Notifying user for the training 

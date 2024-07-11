@@ -15,6 +15,7 @@ struct TrainingCellView: View {
             VStack(alignment: .leading) {
                 Text(training.name).font(.title)
                 Text("Scheduled at: \(training.scheduledAt.formatted(date: .abbreviated, time: .shortened))")
+                    .font(.footnote)
             }
         }
     }

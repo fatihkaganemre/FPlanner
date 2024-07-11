@@ -42,12 +42,22 @@ struct ExerciseListView: View {
                 VStack(alignment: .leading) {
                     Text(exercise.name).font(.headline)
                     Text(exercise.description)
-                    Text("\(exercise.durationInMin) min")
+                    Divider()
+                    if let duration = calculateDuration(ofExercise: exercise) {
+                        Text("Duration: " + duration)
+                    }
                 }
             }
             .onDelete(perform: deleteItems)
             .onMove(perform: move)
         }
+    }
+    
+    private func calculateDuration(ofExercise exercise: KarateExercise) -> String? {
+        var components = DateComponents()
+        components.second = exercise.durationInSec
+        let date = Calendar.current.date(from: components)
+        return date?.formatted(date: .omitted, time: .standard)
     }
     
     private func deleteItems(offsets: IndexSet) {
@@ -75,9 +85,9 @@ struct ExerciseListView: View {
 
 #Preview {
     ExerciseListView(
-        trainingType: .custom,
-        customExercises: .constant([]),
-        gymExercises: .constant([]),
-        karateExercises: .constant([])
+        trainingType: .karate,
+        customExercises: .constant(mockCustomExercises),
+        gymExercises: .constant(mockGymExercises),
+        karateExercises: .constant(mockKarateExercises)
     )
 }

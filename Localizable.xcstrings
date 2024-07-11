@@ -1,9 +1,6 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
-    "%@ min" : {
-
-    },
     "%@ reps" : {
 
     },
@@ -37,9 +34,6 @@
     "Description" : {
 
     },
-    "Duration" : {
-
-    },
     "Enter training name" : {
 
     },
@@ -47,6 +41,9 @@
 
     },
     "Exercises" : {
+
+    },
+    "Hour" : {
 
     },
     "kg" : {
@@ -61,7 +58,7 @@
     "Max: %@ kg" : {
 
     },
-    "min" : {
+    "Min" : {
 
     },
     "Name" : {
@@ -89,6 +86,9 @@
 
     },
     "Search by name" : {
+
+    },
+    "Sec" : {
 
     },
     "Sets: %@" : {
