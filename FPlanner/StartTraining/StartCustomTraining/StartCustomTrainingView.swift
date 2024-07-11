@@ -29,7 +29,11 @@ struct StartCustomTrainingView: View {
         Spacer()
         HStack {
             if viewModel.index > 0 {
-                BackButton()
+                BackButtonView {
+                    withAnimation {
+                        viewModel.handleBackButtonAction()
+                    }
+                }
             }
             StartButton()
         }
@@ -50,21 +54,6 @@ struct StartCustomTrainingView: View {
         .overlay {
             Circle().stroke(.yellow, lineWidth: 4)
         }
-        .shadow(radius: 10)
-    }
-    
-    @ViewBuilder
-    private func BackButton() -> some View {
-        Button(action: {
-            withAnimation {
-                viewModel.handleBackButtonAction()
-            }
-        }, label: {
-            Text("Back").fontWeight(.bold).padding()
-        })
-        .foregroundColor(.white)
-        .background(Color.black)
-        .cornerRadius(12)
         .shadow(radius: 10)
     }
     

@@ -17,8 +17,19 @@ struct TrainingView: View {
         VStack {
             List {
                 Section("Title") {
-                    TextField("Enter training name", text: $viewModel.trainingName)
-                        .font(.title2)
+                    VStack(alignment: .leading) {
+                        TextField("Enter training name", text: $viewModel.trainingName)
+                            .font(.title2)
+                            .onChange(of: viewModel.trainingName) {
+                                viewModel.isTrainingExist = false
+                            }
+                        if viewModel.isTrainingExist {
+                            Text("Training is exist")
+                                .font(.caption)
+                                .foregroundColor(.red)
+                        }
+                    }
+                    
                     DatePicker("Scheduled at", selection: $viewModel.scheduledAt)
                     Toggle("Repeat", isOn: $viewModel.isTrainingRepeats)
                 }
@@ -63,7 +74,9 @@ struct TrainingView: View {
     private func SaveOrDeleteButton() -> some View {
         Button {
             viewModel.saveOrDeleteTraining(fromContext: modelContext)
-            dismiss()
+            if !viewModel.isTrainingExist {
+                dismiss()
+            }
         } label: {
             HStack {
                 Spacer()
@@ -82,6 +95,14 @@ struct TrainingView: View {
 
 #Preview {
     NavigationView {
-        TrainingView(viewModel: .init(training: .init(name: "Example custom training", type: .custom)))
+        TrainingView(
+            viewModel: .init(
+                training: .init(
+                    name: "Example custom training",
+                    customExercises: mockCustomExercises,
+                    type: .custom
+                )
+            )
+        )
     }
 }

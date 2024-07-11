@@ -41,7 +41,11 @@ struct StartKarateTrainingView: View {
         
         HStack {
             if viewModel.index > 0 {
-                BackButton()
+                BackButtonView {
+                    withAnimation {
+                        viewModel.handleBackButtonAction()
+                    }
+                }
             }
             StartButton()
             if viewModel.index < viewModel.exercises.count - 1 {
@@ -82,21 +86,6 @@ struct StartKarateTrainingView: View {
             Text("Skip").fontWeight(.bold).padding()
         })
         .background(Color.yellow)
-        .cornerRadius(12)
-        .shadow(radius: 10)
-    }
-    
-    @ViewBuilder
-    private func BackButton() -> some View {
-        Button(action: {
-            withAnimation {
-                viewModel.handleBackButtonAction()
-            }
-        }, label: {
-            Text("Back").fontWeight(.bold).padding()
-        })
-        .foregroundColor(.white)
-        .background(Color.black)
         .cornerRadius(12)
         .shadow(radius: 10)
     }

@@ -32,6 +32,7 @@
 		3DA24EEF2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA24EEE2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift */; };
 		3DA24EF42C3BD42B00690E2E /* StartCustomTrainingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA24EF32C3BD42B00690E2E /* StartCustomTrainingViewModel.swift */; };
 		3DA24EF62C3BD44600690E2E /* StartGymTrainingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA24EF52C3BD44600690E2E /* StartGymTrainingViewModel.swift */; };
+		3DA24EFB2C3EB14400690E2E /* BackButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA24EFA2C3EB14400690E2E /* BackButtonView.swift */; };
 		3DF007B32C074AE700ECE37C /* Exercise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007B22C074AE700ECE37C /* Exercise.swift */; };
 		3DF007BC2C086BD200ECE37C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 3DF007BB2C086BD200ECE37C /* README.md */; };
 		3DF007C02C0B2A4F00ECE37C /* TrainingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */; };
@@ -91,6 +92,7 @@
 		3DA24EEE2C3BCDE900690E2E /* StartKarateTrainingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartKarateTrainingViewModel.swift; sourceTree = "<group>"; };
 		3DA24EF32C3BD42B00690E2E /* StartCustomTrainingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartCustomTrainingViewModel.swift; sourceTree = "<group>"; };
 		3DA24EF52C3BD44600690E2E /* StartGymTrainingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGymTrainingViewModel.swift; sourceTree = "<group>"; };
+		3DA24EFA2C3EB14400690E2E /* BackButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonView.swift; sourceTree = "<group>"; };
 		3DF007B22C074AE700ECE37C /* Exercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exercise.swift; sourceTree = "<group>"; };
 		3DF007BB2C086BD200ECE37C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrainingsView.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				3DA24EF22C3BD41300690E2E /* StartCustomTraining */,
 				3DA24EF12C3BD40300690E2E /* StartGymTraining */,
 				3DA24EF02C3BD3F300690E2E /* StartKarateTraining */,
+				3DA24EF72C3EB11400690E2E /* CommonUI */,
 			);
 			path = StartTraining;
 			sourceTree = "<group>";
@@ -146,11 +149,8 @@
 		3D13458A2C186AA1001EF46E /* Trainings */ = {
 			isa = PBXGroup;
 			children = (
-				3D13458F2C18A7B3001EF46E /* TrainingsViewModel.swift */,
-				3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */,
-				3D1345882C186336001EF46E /* TrainingCellView.swift */,
-				3DF0083C2C0F35B900ECE37C /* TrainingViewModel.swift */,
-				3DF007C42C0B2D5400ECE37C /* TrainingView.swift */,
+				3DA24EFE2C3EB31A00690E2E /* TrainingList */,
+				3DA24EFF2C3EB32B00690E2E /* Training */,
 			);
 			path = Trainings;
 			sourceTree = "<group>";
@@ -257,6 +257,33 @@
 				3DA24EF32C3BD42B00690E2E /* StartCustomTrainingViewModel.swift */,
 			);
 			path = StartCustomTraining;
+			sourceTree = "<group>";
+		};
+		3DA24EF72C3EB11400690E2E /* CommonUI */ = {
+			isa = PBXGroup;
+			children = (
+				3DA24EFA2C3EB14400690E2E /* BackButtonView.swift */,
+			);
+			path = CommonUI;
+			sourceTree = "<group>";
+		};
+		3DA24EFE2C3EB31A00690E2E /* TrainingList */ = {
+			isa = PBXGroup;
+			children = (
+				3D1345882C186336001EF46E /* TrainingCellView.swift */,
+				3D13458F2C18A7B3001EF46E /* TrainingsViewModel.swift */,
+				3DF007BF2C0B2A4F00ECE37C /* TrainingsView.swift */,
+			);
+			path = TrainingList;
+			sourceTree = "<group>";
+		};
+		3DA24EFF2C3EB32B00690E2E /* Training */ = {
+			isa = PBXGroup;
+			children = (
+				3DF0083C2C0F35B900ECE37C /* TrainingViewModel.swift */,
+				3DF007C42C0B2D5400ECE37C /* TrainingView.swift */,
+			);
+			path = Training;
 			sourceTree = "<group>";
 		};
 		3DF0083E2C0F367000ECE37C /* Model */ = {
@@ -423,6 +450,7 @@
 			files = (
 				3DF008412C1096A700ECE37C /* Training.xcdatamodeld in Sources */,
 				3DA24EF42C3BD42B00690E2E /* StartCustomTrainingViewModel.swift in Sources */,
+				3DA24EFB2C3EB14400690E2E /* BackButtonView.swift in Sources */,
 				3DF0083D2C0F35B900ECE37C /* TrainingViewModel.swift in Sources */,
 				3DF007C22C0B2AD600ECE37C /* MainView.swift in Sources */,
 				3DF007B32C074AE700ECE37C /* Exercise.swift in Sources */,

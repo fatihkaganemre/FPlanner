@@ -11,10 +11,6 @@ struct StartGymTrainingView: View {
     @StateObject var viewModel: StartGymTrainingViewModel
     @Environment(\.dismiss) private var dismiss
     
-    enum ButtonState: String {
-        case Next, Finish
-    }
-    
     var body: some View {
         if viewModel.index < viewModel.exercises.count {
             let exercise = viewModel.exercises[viewModel.index]
@@ -37,7 +33,11 @@ struct StartGymTrainingView: View {
         Spacer()
         HStack {
             if viewModel.index > 0 {
-                BackButton()
+                BackButtonView {
+                    withAnimation {
+                        viewModel.handleBackButtonAction()
+                    }
+                }
             }
             StartButton()
         }
@@ -58,21 +58,6 @@ struct StartGymTrainingView: View {
         .overlay {
             Circle().stroke(.yellow, lineWidth: 4)
         }
-        .shadow(radius: 10)
-    }
-    
-    @ViewBuilder
-    private func BackButton() -> some View {
-        Button(action: {
-            withAnimation {
-                viewModel.handleBackButtonAction()
-            }
-        }, label: {
-            Text("Back").fontWeight(.bold).padding()
-        })
-        .foregroundColor(.white)
-        .background(Color.black)
-        .cornerRadius(12)
         .shadow(radius: 10)
     }
     

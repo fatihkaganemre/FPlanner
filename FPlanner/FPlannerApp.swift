@@ -23,7 +23,7 @@ struct FPlannerApp: App {
         }
     }()
     
-    @StateObject var notificationObserver = TrainingNotificationObserver()
+    @StateObject private var notificationObserver = TrainingNotificationObserver()
 
     var body: some Scene {
         WindowGroup {

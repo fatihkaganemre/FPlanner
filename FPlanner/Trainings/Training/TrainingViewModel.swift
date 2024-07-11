@@ -16,6 +16,7 @@ class TrainingViewModel: ObservableObject {
     @Published var karateExercises: [KarateExercise]
     @Published var scheduledAt: Date
     @Published var isTrainingRepeats: Bool = false
+    @Published var isTrainingExist: Bool = false
     
     private let training: Training
     private let notificationService: TrainingNotificationServiceProtocol
@@ -62,6 +63,15 @@ class TrainingViewModel: ObservableObject {
     }
     
     private func createTraining(modelContext: ModelContext) {
+        let fetchDescriptor = FetchDescriptor<Training>(
+            predicate: Training.predicate(name: trainingName)
+        )
+        
+        if let _ = try? modelContext.fetch(fetchDescriptor) {
+            isTrainingExist = true
+            return
+        }
+        
         let newTraining = Training(
             name: trainingName,
             scheduledAt: scheduledAt,

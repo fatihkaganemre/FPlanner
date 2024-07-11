@@ -27,11 +27,15 @@ struct ContentView: View {
         }
         .tint(Color("darkGreen"))
         .sheet(isPresented: $notificationObserver.didReceiveNotification, content: {
-            if let trainingName = notificationObserver.receivedNotification?.targetContentIdentifier,
-               let training = trainings.first(where: { $0.name == trainingName }) {
+            if let training = getTrainingFromNotification() {
                 StartTrainingView(training: training)
             }
         })
+    }
+    
+    private func getTrainingFromNotification() -> Training? {
+        let trainingName = notificationObserver.receivedNotification?.targetContentIdentifier
+        return trainings.first(where: { $0.name == trainingName })
     }
 }
 

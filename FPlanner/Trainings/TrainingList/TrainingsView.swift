@@ -38,14 +38,7 @@ struct TrainingsView: View {
             .onAppear { viewModel.updateTrainings(trainings) }
             .onChange(of: trainings) { viewModel.updateTrainings(trainings) }
             .sheet(isPresented: $viewModel.isShowingSheet) {
-                switch viewModel.sheetType {
-                    case let .share(items):
-                        ShareSheet(items: items)
-                    case let .start(training):
-                        StartTrainingView(training: training)
-                    case .none:
-                        EmptyView()
-                }
+                PresentView()
             }
         }
     }
@@ -53,6 +46,18 @@ struct TrainingsView: View {
     private func deleteTraining(type: TrainingType, offsets: IndexSet) {
         withAnimation {
             viewModel.deleteTraining(type: type, offsets: offsets, context: modelContext)
+        }
+    }
+    
+    @ViewBuilder 
+    private func PresentView() -> some View {
+        switch viewModel.sheetType {
+            case let .share(items):
+                ShareSheet(items: items)
+            case let .start(training):
+                StartTrainingView(training: training)
+            case .none:
+                EmptyView()
         }
     }
     
