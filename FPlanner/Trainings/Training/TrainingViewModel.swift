@@ -67,7 +67,7 @@ class TrainingViewModel: ObservableObject {
             predicate: Training.predicate(name: trainingName)
         )
         
-        if let _ = try? modelContext.fetch(fetchDescriptor) {
+        if let trainings = try? modelContext.fetch(fetchDescriptor), !trainings.isEmpty {
             isTrainingExist = true
             return
         }
