@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Combine
+import AudioToolbox
 
 @MainActor
 class StartKarateTrainingViewModel: ObservableObject {
@@ -81,6 +82,7 @@ class StartKarateTrainingViewModel: ObservableObject {
             let totalTime = Double(exercises[index].durationInSec ?? 0)
             trimTo = 1 - (Double(timeRemaining) / totalTime)
         } else {
+            AudioTool.playSytemSound()
             nextExercise()
         }
     }

@@ -52,12 +52,14 @@ struct TrainingView: View {
                         case .karate: KarateExerciseView(exerciseList: $viewModel.karateExercises)
                     }
                 }
+                
+                SaveOrCreateButton()
+                    .disabled(
+                        viewModel.isCreateOrSaveButtonDisabled
+                    )
+                    .listRowBackground(EmptyView())
             }
             
-            SaveOrCreateButton()
-                .disabled(
-                    viewModel.isCreateOrSaveButtonDisabled
-                )
         }
         .background(Color(.systemGray6))
         .navigationTitle(viewModel.navigationTitle)
@@ -87,12 +89,12 @@ struct TrainingView: View {
                 Spacer()
             }
         }
+        .frame(height: 55)
         .disabled(viewModel.isExerciseListEmpty)
         .font(.title)
         .foregroundColor(.white)
         .background(viewModel.isExerciseListEmpty ? Color.gray : Color("darkGreen"))
         .cornerRadius(10)
-        .padding()
     }
 }
 

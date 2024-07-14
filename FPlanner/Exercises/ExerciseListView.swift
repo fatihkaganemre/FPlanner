@@ -42,7 +42,6 @@ struct ExerciseListView: View {
                 VStack(alignment: .leading) {
                     Text(exercise.name).font(.headline)
                     Text(exercise.description)
-                    Divider()
                     if let duration = calculateDuration(ofExercise: exercise) {
                         Text("Duration: " + duration)
                     }
