@@ -73,6 +73,9 @@ struct TrainingView: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
+        .onAppear {
+            viewModel.setScheduledAt()
+        }
     }
     
     @ViewBuilder

@@ -66,6 +66,15 @@ class TrainingViewModel: ObservableObject {
         : saveTraining()
     }
     
+    func setScheduledAt() {
+        if !isCreateTraining,
+           training.repeats && training.scheduledAt < Date.now,
+           let scheduledDate = Calendar.current.date(byAdding: .weekOfYear, value: 1, to: training.scheduledAt) {
+            training.scheduledAt = scheduledDate
+            scheduledAt = training.scheduledAt
+        }
+    }
+    
     private func createTraining(modelContext: ModelContext) {
         let fetchDescriptor = FetchDescriptor<Training>(
             predicate: Training.predicate(name: trainingName)
