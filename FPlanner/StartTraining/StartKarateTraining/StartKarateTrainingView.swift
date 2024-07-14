@@ -38,7 +38,6 @@ struct StartKarateTrainingView: View {
         }
 
         Spacer()
-        
         HStack {
             if viewModel.index > 0 {
                 BackButtonView {
@@ -47,7 +46,10 @@ struct StartKarateTrainingView: View {
                     }
                 }
             }
-            StartButton()
+            VStack(alignment: .center) {
+                Text("\(viewModel.timeRemaining)").font(.title)
+                StartButton()
+            }
             if viewModel.index < viewModel.exercises.count - 1 {
                 SkipButton()
             }

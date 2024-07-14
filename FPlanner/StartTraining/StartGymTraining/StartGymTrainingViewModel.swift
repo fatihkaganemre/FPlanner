@@ -15,6 +15,9 @@ class StartGymTrainingViewModel: ObservableObject {
     
     init(exercises: [GymExercise]) {
         self.exercises = exercises
+        if exercises.count == 1 {
+            buttonState = .Finish
+        }
     }
     
     enum ButtonState: String {

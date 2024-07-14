@@ -15,6 +15,10 @@ class StartCustomTrainingViewModel: ObservableObject {
     
     init(exercises: [CustomExercise]) {
         self.exercises = exercises
+        
+        if exercises.count == 1 {
+            buttonState = .Finish
+        }
     }
     
     enum ButtonState: String {

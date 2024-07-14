@@ -14,9 +14,9 @@ It allows you to:
 
 # TODO
 - Clean the code
-- Update karate training creation
+- Make karate duration optional! 
+- Add alarm when duration finished
 - When training repeats it should show the future date as Scheduled
-- Add alarm for finishing exercise in Start training view
 
 # Tech stack
 - SwiftUI
@@ -30,6 +30,7 @@ It allows you to:
 - Widgets
 - Localisation
 - Think about a different font and colour schema 
+- WatchOS support
 
 Notification
 - Notifying user for the training 
@@ -38,8 +39,6 @@ Notification
 - When start tapped , display a view which shows the exercises 
 
 Start Training View 
-- It should start a training depends on its type 
-- if there is a duration display a timer with a nice animation
 - Tracking the exercises and ringing an alarm once the exercise completes
     - Live activity widget configuration
     - .supplementalActivityFamilies([.small]) for watchOS
